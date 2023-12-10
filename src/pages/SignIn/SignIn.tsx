@@ -6,6 +6,7 @@ import {
   validatePassword,
 } from '../../utils/helpers/validation';
 import Service from '../../app/service/service';
+import cls from './SignIn.module.scss';
 
 export const SignIn = () => {
   const [form] = Form.useForm();
@@ -18,7 +19,6 @@ export const SignIn = () => {
   const onFinish = (values: Store) => {
     const { email, password } = values;
     Service.signIn(email, password);
-    console.log('Received values:', values);
   };
 
   return (
@@ -28,6 +28,7 @@ export const SignIn = () => {
       initialValues={{ remember: true }}
       onFinish={onFinish}
       validateMessages={validateMessages}
+      className={cls.container}
     >
       <Form.Item
         label="Email"
