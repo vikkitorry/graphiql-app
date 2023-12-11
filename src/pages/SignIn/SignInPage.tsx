@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import { Store } from 'antd/lib/form/interface';
-import {
-  validateMessages,
-  validatePassword,
-} from '../../utils/helpers/validation';
+import { validateMessages, validatePassword } from '../../utils/helpers/validation';
 import Service from '../../app/service/service';
-import cls from './SignIn.module.scss';
+import cls from './sign-in-page.module.scss';
 
-export const SignIn = () => {
+const SignInPage = () => {
   const [form] = Form.useForm();
   const [clientReady, setClientReady] = useState<boolean>(false);
 
@@ -59,8 +56,7 @@ export const SignIn = () => {
             disabled={
               !clientReady ||
               !form.isFieldsTouched(true) ||
-              !!form.getFieldsError().filter(({ errors }) => errors.length)
-                .length
+              !!form.getFieldsError().filter(({ errors }) => errors.length).length
             }
           >
             Sign In
@@ -70,3 +66,5 @@ export const SignIn = () => {
     </Form>
   );
 };
+
+export default SignInPage;

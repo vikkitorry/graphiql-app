@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import { Store } from 'antd/lib/form/interface';
-import {
-  validateMessages,
-  validatePassword,
-} from '../../utils/helpers/validation';
+import { validateMessages, validatePassword } from '../../utils/helpers/validation';
 import Service from '../../app/service/service';
-import cls from './SignUp.module.scss';
+import cls from './sign-up-page.module.scss';
 
-export const SignUp = () => {
+const SignUpPage = () => {
   const [form] = Form.useForm();
   const [clientReady, setClientReady] = useState<boolean>(false);
 
@@ -59,8 +56,7 @@ export const SignUp = () => {
             disabled={
               !clientReady ||
               !form.isFieldsTouched(true) ||
-              !!form.getFieldsError().filter(({ errors }) => errors.length)
-                .length
+              !!form.getFieldsError().filter(({ errors }) => errors.length).length
             }
           >
             Sign Up
@@ -70,3 +66,5 @@ export const SignUp = () => {
     </Form>
   );
 };
+
+export default SignUpPage;
