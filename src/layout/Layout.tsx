@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom';
+import classes from './layout.module.scss';
 import Header from '../components/header/Header';
 
 type LayoutProps = {
@@ -8,12 +9,12 @@ type LayoutProps = {
 
 const Layout = ({ userLoggedIn, setUserLoggedIn }: LayoutProps) => {
   return (
-    <div className="wrapper">
+    <div className={classes.wrapper}>
       <Header userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn} />
-      <main>
+      <main className={classes.main}>
         <Outlet />
       </main>
-      <footer>2024</footer>
+      <footer className={classes.footer}>2024</footer>
     </div>
   );
 };

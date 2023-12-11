@@ -1,5 +1,5 @@
 const GraphiQLPage = () => {
-  return <div>GraphiQL Page</div>;
+  return <h2>GraphiQL Page</h2>;
 };
 
 export default GraphiQLPage;
