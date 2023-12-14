@@ -13,7 +13,7 @@ import { AppRoutes } from '../routes/routeConfig/routeConfig';
 
 const App = () => {
   const [user, loading] = useAuthState(auth);
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [userLoggedIn, setUserLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
     if (!loading) {
@@ -30,8 +30,6 @@ const App = () => {
         <Route index element={<WelcomePage userLoggedIn={userLoggedIn} />} />
         <Route element={<ProtectedRoute userLoggedIn={userLoggedIn} />}>
           <Route path={AppRoutes.SIGN_IN} element={<SignInPage />} />
-        </Route>
-        <Route element={<ProtectedRoute userLoggedIn={userLoggedIn} />}>
           <Route path={AppRoutes.SIGN_UP} element={<SignUpPage />} />
         </Route>
         <Route element={<ProtectedRoute userLoggedIn={!userLoggedIn} />}>
