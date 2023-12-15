@@ -5,6 +5,7 @@ import Service from '../../app/service/service';
 import { TranslatorContext } from '../../context/translatorContextProvider';
 import { AppRoutes } from '../../routes/routeConfig/routeConfig';
 import { Flex, Switch } from 'antd';
+import logo from '../../assets/GraphiQL.png';
 
 type HeaderProps = {
   userLoggedIn: boolean;
@@ -29,9 +30,8 @@ const Header = ({ userLoggedIn, setUserLoggedIn }: HeaderProps) => {
     <header className={classes.header}>
       <Flex gap={'middle'} align={'center'} className={classes.logobox}>
         <div className={classes.logo}>
-          <img src="./favicon.png" alt="logo" />
+          <img src={logo} alt="logo" />
         </div>
-        <h1>GraphiQL</h1>
         <Switch
           checked={lang === 'ru'}
           checkedChildren="RU"
@@ -41,9 +41,7 @@ const Header = ({ userLoggedIn, setUserLoggedIn }: HeaderProps) => {
       </Flex>
 
       <Flex gap={'middle'} justify={'center'} className={classes.mainLink}>
-        <NavLink className={classes.link} to={'/'}>
-          {data[lang].welcome}
-        </NavLink>
+        <NavLink to={'/'}>{data[lang].welcome}</NavLink>
       </Flex>
 
       <Flex className={classes.authLinks}>
