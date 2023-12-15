@@ -6,15 +6,20 @@ import { TranslatorContext } from '../context/translatorContextProvider';
 import { translationData, translationErrorsData } from '../context/translationData/translationData';
 import { useState } from 'react';
 import { Language } from '../context/translatorContextProvider';
+import { Triangle } from 'react-loader-spinner';
+import { Flex } from 'antd';
 
 type LayoutProps = {
   userLoggedIn: boolean;
   setUserLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  isLoading: boolean;
 };
 
-const Layout = ({ userLoggedIn, setUserLoggedIn }: LayoutProps) => {
+const Layout = (props: LayoutProps) => {
+  const { userLoggedIn, setUserLoggedIn, isLoading } = props;
   const [lang, setLang] = useState<Language>('en');
-  return (
+
+  return !isLoading ? (
     <TranslatorContext.Provider
       value={{ lang, data: translationData, errorsData: translationErrorsData, setLang }}
     >
@@ -26,6 +31,16 @@ const Layout = ({ userLoggedIn, setUserLoggedIn }: LayoutProps) => {
         <Footer />
       </div>
     </TranslatorContext.Provider>
+  ) : (
+    <Flex className={classes.spinnerContainer} align={'center'} justify={'center'}>
+      <Triangle
+        height="140"
+        width="140"
+        color="black"
+        ariaLabel="triangle-loading"
+        visible={true}
+      />
+    </Flex>
   );
 };
 
