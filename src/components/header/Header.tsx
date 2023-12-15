@@ -1,6 +1,10 @@
 import { NavLink } from 'react-router-dom';
+import { useContext } from 'react';
 import classes from './header.module.scss';
 import Service from '../../app/service/service';
+import { TranslatorContext } from '../../context/translatorContextProvider';
+import { AppRoutes } from '../../routes/routeConfig/routeConfig';
+import { Flex } from 'antd';
 
 type HeaderProps = {
   userLoggedIn: boolean;
@@ -8,37 +12,43 @@ type HeaderProps = {
 };
 
 const Header = ({ userLoggedIn, setUserLoggedIn }: HeaderProps) => {
+  const { lang, data } = useContext(TranslatorContext);
+
   const logout = async () => {
-    try {
-      await Service.signOut();
-      setUserLoggedIn(false);
-    } catch (err) {
-      console.log(err);
-    }
+    await Service.signOut();
+    setUserLoggedIn(false);
   };
 
   return (
     <header className={classes.header}>
-      <div className={classes.logobox}>
+      <Flex gap={'middle'} align={'center'} className={classes.logobox}>
         <div className={classes.logo}>
           <img src="./favicon.png" alt="logo" />
         </div>
         <h1>GraphiQL</h1>
-      </div>
+      </Flex>
 
-      <div className={classes.mainLink}>
+      <Flex gap={'middle'} justify={'center'} className={classes.mainLink}>
         <NavLink className={classes.link} to={'/'}>
-          Main
+          {data[lang].welcome}
         </NavLink>
-      </div>
+      </Flex>
 
-      <div className={classes.logoutLink}>
-        {userLoggedIn && (
-          <NavLink to={'/'} onClick={logout}>
-            Logout
-          </NavLink>
+      <Flex className={classes.authLinks}>
+        {userLoggedIn ? (
+          <Flex gap={'middle'} justify={'center'}>
+            <NavLink to={AppRoutes.GRAPHI_QL}>Main Page</NavLink>
+            <NavLink to={AppRoutes.MAIN} onClick={logout}>
+              {data[lang].signOut}
+            </NavLink>
+          </Flex>
+        ) : (
+          <Flex gap={'middle'} justify={'center'}>
+            <NavLink to={AppRoutes.SIGN_IN}>{data[lang].signIn}</NavLink>
+            <NavLink to={AppRoutes.SIGN_UP}>{data[lang].signUp}</NavLink>
+          </Flex>
         )}
-      </div>
+      </Flex>
     </header>
   );
 };
