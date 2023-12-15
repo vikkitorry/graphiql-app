@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp, FirebaseError } from 'firebase/app';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -17,22 +17,21 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+export const auth = getAuth(app);
 const db = getFirestore(app);
 
 export default class Service {
   static async signUp(email: string, password: string) {
     try {
       const resp = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(resp);
       await addDoc(collection(db, 'users'), {
         uid: resp.user.uid,
         authProvider: 'local',
         email,
       });
     } catch (err) {
-      if (err instanceof Error) {
-        console.log(err);
+      if (err instanceof FirebaseError) {
+        throw new Error(err.message);
       }
     }
   }
@@ -41,8 +40,8 @@ export default class Service {
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
-      if (err instanceof Error) {
-        console.log(err);
+      if (err instanceof FirebaseError) {
+        throw new Error(err.message);
       }
     }
   }

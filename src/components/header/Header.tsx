@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import classes from './header.module.scss';
+import Service from '../../app/service/service';
 
 type HeaderProps = {
   userLoggedIn: boolean;
@@ -7,6 +8,15 @@ type HeaderProps = {
 };
 
 const Header = ({ userLoggedIn, setUserLoggedIn }: HeaderProps) => {
+  const logout = async () => {
+    try {
+      await Service.signOut();
+      setUserLoggedIn(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <header className={classes.header}>
       <div className={classes.logobox}>
@@ -24,7 +34,7 @@ const Header = ({ userLoggedIn, setUserLoggedIn }: HeaderProps) => {
 
       <div className={classes.logoutLink}>
         {userLoggedIn && (
-          <NavLink to={'/'} onClick={() => setUserLoggedIn(false)}>
+          <NavLink to={'/'} onClick={logout}>
             Logout
           </NavLink>
         )}
