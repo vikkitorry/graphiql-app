@@ -1,4 +1,5 @@
 import cls from './Footer.module.scss';
+import RssIcon from '../../assets/RssIcon.svg';
 
 const Footer = () => {
   return (
@@ -10,7 +11,9 @@ const Footer = () => {
       </div>
       <div>2024</div>
       <div>
-        <a href="https://rs.school/react/">ADD PICTURE</a>
+        <a href="https://rs.school/react/">
+          <img src={RssIcon} alt={'RSSshool icon'} width={70} height={60} />
+        </a>
       </div>
     </footer>
   );
