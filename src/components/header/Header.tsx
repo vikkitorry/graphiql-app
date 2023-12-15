@@ -4,7 +4,7 @@ import classes from './header.module.scss';
 import Service from '../../app/service/service';
 import { TranslatorContext } from '../../context/translatorContextProvider';
 import { AppRoutes } from '../../routes/routeConfig/routeConfig';
-import { Flex } from 'antd';
+import { Flex, Switch } from 'antd';
 
 type HeaderProps = {
   userLoggedIn: boolean;
@@ -12,11 +12,17 @@ type HeaderProps = {
 };
 
 const Header = ({ userLoggedIn, setUserLoggedIn }: HeaderProps) => {
-  const { lang, data } = useContext(TranslatorContext);
+  const { lang, data, setLang } = useContext(TranslatorContext);
 
   const logout = async () => {
     await Service.signOut();
     setUserLoggedIn(false);
+  };
+
+  const changeLang = () => {
+    if (setLang) {
+      lang === 'ru' ? setLang('en') : setLang('ru');
+    }
   };
 
   return (
@@ -26,6 +32,12 @@ const Header = ({ userLoggedIn, setUserLoggedIn }: HeaderProps) => {
           <img src="./favicon.png" alt="logo" />
         </div>
         <h1>GraphiQL</h1>
+        <Switch
+          checked={lang === 'ru'}
+          checkedChildren="RU"
+          unCheckedChildren="EN"
+          onChange={changeLang}
+        />
       </Flex>
 
       <Flex gap={'middle'} justify={'center'} className={classes.mainLink}>
@@ -37,7 +49,7 @@ const Header = ({ userLoggedIn, setUserLoggedIn }: HeaderProps) => {
       <Flex className={classes.authLinks}>
         {userLoggedIn ? (
           <Flex gap={'middle'} justify={'center'}>
-            <NavLink to={AppRoutes.GRAPHI_QL}>Main Page</NavLink>
+            <NavLink to={AppRoutes.GRAPHI_QL}>{data[lang].mainPage}</NavLink>
             <NavLink to={AppRoutes.MAIN} onClick={logout}>
               {data[lang].signOut}
             </NavLink>

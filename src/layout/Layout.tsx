@@ -4,6 +4,8 @@ import Header from '../components/header/Header';
 import Footer from '../components/Footer/Footer';
 import { TranslatorContext } from '../context/translatorContextProvider';
 import { translationData, translationErrorsData } from '../context/translationData/translationData';
+import { useState } from 'react';
+import { Language } from '../context/translatorContextProvider';
 
 type LayoutProps = {
   userLoggedIn: boolean;
@@ -11,9 +13,10 @@ type LayoutProps = {
 };
 
 const Layout = ({ userLoggedIn, setUserLoggedIn }: LayoutProps) => {
+  const [lang, setLang] = useState<Language>('en');
   return (
     <TranslatorContext.Provider
-      value={{ lang: 'en', data: translationData, errorsData: translationErrorsData }}
+      value={{ lang, data: translationData, errorsData: translationErrorsData, setLang }}
     >
       <div className={classes.wrapper}>
         <Header userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn} />

@@ -7,6 +7,7 @@ export const translationData = {
     email: 'Email',
     password: 'Password',
     welcome: 'Welcome',
+    mainPage: 'Main Page',
   },
   ru: {
     main: 'Главная',
@@ -16,6 +17,7 @@ export const translationData = {
     email: 'Почта',
     password: 'Пароль',
     welcome: 'Добро пожаловать',
+    mainPage: 'Главная',
   },
 };
 

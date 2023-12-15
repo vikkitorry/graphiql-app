@@ -10,6 +10,7 @@ export interface ITranslatorData {
 
 export type TranslatorContext = {
   lang: Language;
+  setLang?: (lang: Language) => void;
   data: ITranslatorData;
   errorsData: ITranslatorData;
 };
