@@ -14,10 +14,14 @@ import { AppRoutes } from '../routes/routeConfig/routeConfig';
 const App = () => {
   const [user, loading] = useAuthState(auth);
   const [userLoggedIn, setUserLoggedIn] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (!loading) {
       setUserLoggedIn(Boolean(user));
+      setIsLoading(loading);
+    } else {
+      setIsLoading(loading);
     }
   }, [loading, user]);
 
@@ -25,7 +29,13 @@ const App = () => {
     <Routes>
       <Route
         path={AppRoutes.MAIN}
-        element={<Layout userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn} />}
+        element={
+          <Layout
+            userLoggedIn={userLoggedIn}
+            setUserLoggedIn={setUserLoggedIn}
+            isLoading={isLoading}
+          />
+        }
       >
         <Route index element={<WelcomePage userLoggedIn={userLoggedIn} />} />
         <Route element={<ProtectedRoute userLoggedIn={userLoggedIn} />}>

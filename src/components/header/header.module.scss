@@ -8,9 +8,6 @@
 }
 
 .logobox {
-  display: flex;
-  align-items: center;
-  gap: 30px;
   flex: 0 1 300px;
 }
 
@@ -25,12 +22,8 @@
 
 .mainLink {
   flex: 1 1 300px;
-  display: flex;
-  justify-content: center;
 }
 
-.logoutLink {
+.authLinks {
   flex: 0 1 300px;
-  display: flex;
-  justify-content: center;
 }

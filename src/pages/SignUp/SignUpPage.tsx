@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Form, Input, Button } from 'antd';
 import { Store } from 'antd/lib/form/interface';
 import { validateMessages, validatePassword } from '../../utils/helpers/validation';
 import Service from '../../app/service/service';
 import cls from './sign-up-page.module.scss';
 import { notification } from 'antd';
+import { TranslatorContext } from '../../context/translatorContextProvider';
 
 const SignUpPage = () => {
   const [form] = Form.useForm();
   const [clientReady, setClientReady] = useState<boolean>(false);
   const [api, contextHolder] = notification.useNotification();
+  const { lang, data } = useContext(TranslatorContext);
 
   useEffect(() => {
     setClientReady(true);
@@ -40,7 +42,7 @@ const SignUpPage = () => {
         className={cls.container}
       >
         <Form.Item
-          label="Email"
+          label={data[lang].email}
           name="email"
           rules={[
             {
@@ -49,15 +51,15 @@ const SignUpPage = () => {
             },
           ]}
         >
-          <Input placeholder={'Email'} />
+          <Input placeholder={data[lang].email} />
         </Form.Item>
 
         <Form.Item
-          label="Password"
+          label={data[lang].password}
           name="password"
           rules={[{ required: true }, { validator: validatePassword }]}
         >
-          <Input.Password placeholder={'Password'} />
+          <Input.Password placeholder={data[lang].password} />
         </Form.Item>
 
         <Form.Item shouldUpdate>
@@ -71,7 +73,7 @@ const SignUpPage = () => {
                 !!form.getFieldsError().filter(({ errors }) => errors.length).length
               }
             >
-              Sign Up
+              {data[lang].signUp}
             </Button>
           )}
         </Form.Item>
