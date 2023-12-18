@@ -29,9 +29,10 @@ const Header = ({ userLoggedIn, setUserLoggedIn }: HeaderProps) => {
   return (
     <header className={classes.header}>
       <Flex gap={'middle'} align={'center'} className={classes.logobox}>
-        <div className={classes.logo}>
+        <NavLink to={AppRoutes.MAIN} className={classes.logo}>
           <img src={logo} alt="logo" />
-        </div>
+        </NavLink>
+
         <Switch
           checked={lang === 'ru'}
           checkedChildren="RU"

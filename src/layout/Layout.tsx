@@ -6,7 +6,7 @@ import { TranslatorContext } from '../context/translatorContextProvider';
 import { translationData, translationErrorsData } from '../context/translationData/translationData';
 import { useState } from 'react';
 import { Language } from '../context/translatorContextProvider';
-import { Triangle } from 'react-loader-spinner';
+import { BallTriangle } from 'react-loader-spinner';
 import { Flex } from 'antd';
 
 type LayoutProps = {
@@ -33,11 +33,12 @@ const Layout = (props: LayoutProps) => {
     </TranslatorContext.Provider>
   ) : (
     <Flex className={classes.spinnerContainer} align={'center'} justify={'center'}>
-      <Triangle
-        height="140"
-        width="140"
-        color="black"
-        ariaLabel="triangle-loading"
+      <BallTriangle
+        height={140}
+        width={140}
+        radius={5}
+        color="#c8e3ec"
+        ariaLabel="ball-triangle-loading"
         visible={true}
       />
     </Flex>
