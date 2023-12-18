@@ -1,5 +1,5 @@
-import React from 'react';
+import DocsComponent from '../components/Schema/Schema';
 
 export const App = () => {
-  return <div>App</div>;
+  return <DocsComponent />;
 };
