@@ -1,16 +1,13 @@
-import type { StackItem } from '../Schema';
-import { GraphQLSchema } from 'graphql';
 import TypeLink from '../TypeLink/TypeLink';
 import FieldLink from '../FieldLink/FieldLink';
 import ArgumentList from '../ArgumentList/ArgumentList';
+import type { StackItem } from '../../../types/documentationTypes';
 
 export type ViewProps = {
   viewProps: StackItem;
-  schema: GraphQLSchema;
-  setStack: React.Dispatch<React.SetStateAction<StackItem[]>>;
 };
 
-const TypeView = ({ viewProps, schema, setStack }: ViewProps) => {
+const TypeView = ({ viewProps }: ViewProps) => {
   const { name, description, fields, enumValues } = viewProps;
   return (
     <>
@@ -25,14 +22,10 @@ const TypeView = ({ viewProps, schema, setStack }: ViewProps) => {
               return (
                 <li key={field.name}>
                   <div>
-                    <FieldLink field={field} type={type} setStack={setStack} />
-                    <ArgumentList
-                      args={field.args}
-                      setStack={setStack}
-                      schema={schema}
-                    />
+                    <FieldLink field={field} type={type} />
+                    <ArgumentList args={field.args} />
                     :
-                    <TypeLink type={type} setStack={setStack} schema={schema} />
+                    <TypeLink type={type} />
                   </div>
                   <p>{field.description}</p>
                 </li>

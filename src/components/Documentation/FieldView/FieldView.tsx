@@ -1,6 +1,6 @@
-import { ViewProps } from '../TypeView/TypeView';
 import TypeLink from '../TypeLink/TypeLink';
-const FieldView = ({ viewProps, schema, setStack }: ViewProps) => {
+import type { ViewProps } from '../TypeView/TypeView';
+const FieldView = ({ viewProps }: ViewProps) => {
   const { name, description, args, type } = viewProps;
   return (
     <>
@@ -9,7 +9,7 @@ const FieldView = ({ viewProps, schema, setStack }: ViewProps) => {
       {type ? (
         <>
           <p>Type</p>
-          <TypeLink type={type} setStack={setStack} schema={schema} />
+          <TypeLink type={type} />
         </>
       ) : null}
       {args?.length ? (
@@ -20,11 +20,7 @@ const FieldView = ({ viewProps, schema, setStack }: ViewProps) => {
               return (
                 <li key={arg.name}>
                   {arg.name}:
-                  <TypeLink
-                    type={arg.type}
-                    setStack={setStack}
-                    schema={schema}
-                  />
+                  <TypeLink type={arg.type} />
                 </li>
               );
             })}

@@ -1,14 +1,15 @@
 import { GraphQLType } from 'graphql';
-import type { StackItem } from '../Schema';
-import { FieldType } from '../../../types/schemaTypes';
+import { useContext } from 'react';
+import { DocumentationContext } from '../../../context/documentationContext';
+import type { FieldType } from '../../../types/documentationTypes';
 
 type FieldLinkProps = {
   field: FieldType;
   type: GraphQLType;
-  setStack: React.Dispatch<React.SetStateAction<StackItem[]>>;
 };
 
-const FieldLink = ({ field, type, setStack }: FieldLinkProps) => {
+const FieldLink = ({ field, type }: FieldLinkProps) => {
+  const { setStack } = useContext(DocumentationContext);
   return (
     <a
       href="#"
