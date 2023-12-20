@@ -55,7 +55,7 @@ const Documentation = () => {
         ) : (
           <>
             {stack.length > 1 ? (
-              <div>
+              <h5>
                 <a
                   href="#"
                   onClick={(e) => {
@@ -67,9 +67,12 @@ const Documentation = () => {
                     });
                   }}
                 >
-                  <span>&lt; {stack.at(-2)?.name}</span>
+                  <div className={classes.navigationLink}>
+                    <span>&lt;</span>
+                    <span>{stack.at(-2)?.name}</span>
+                  </div>
                 </a>
-              </div>
+              </h5>
             ) : null}
             {currentView}
           </>

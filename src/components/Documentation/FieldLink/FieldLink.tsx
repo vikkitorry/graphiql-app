@@ -2,6 +2,7 @@ import { GraphQLType } from 'graphql';
 import { useContext } from 'react';
 import { DocumentationContext } from '../../../context/documentationContext';
 import type { FieldType } from '../../../types/documentationTypes';
+import classes from './field-link.module.scss';
 
 type FieldLinkProps = {
   field: FieldType;
@@ -13,11 +14,12 @@ const FieldLink = ({ field, type }: FieldLinkProps) => {
   return (
     <a
       href="#"
+      className={classes.field}
       onClick={(e) => {
         e.preventDefault();
-        setStack((prev) => {
+        setStack((curr) => {
           return [
-            ...prev,
+            ...curr,
             {
               name: field.name,
               view: 'field',

@@ -1,26 +1,29 @@
 import TypeLink from '../TypeLink/TypeLink';
 import type { ViewProps } from '../TypeView/TypeView';
+import SectionHeading from '../SectionHeading/SectionHeading';
+import { TbSquareLetterT, TbSquareLetterA } from 'react-icons/tb';
+import classes from './field-view.module.scss';
+
 const FieldView = ({ viewProps }: ViewProps) => {
   const { name, description, args, type } = viewProps;
   return (
     <>
-      <p>{name}</p>
+      <h4>{name}</h4>
       {description ? <p>{description}</p> : null}
       {type ? (
         <>
-          <p>Type</p>
+          <SectionHeading content="Type" icon={<TbSquareLetterT />} />
           <TypeLink type={type} />
         </>
       ) : null}
       {args?.length ? (
         <>
-          <p>Arguments</p>
+          <SectionHeading content="Arguments" icon={<TbSquareLetterA />} />
           <ul>
             {args.map((arg) => {
               return (
-                <li key={arg.name}>
-                  {arg.name}:
-                  <TypeLink type={arg.type} />
+                <li key={arg.name} className={classes.argument}>
+                  {arg.name}: <TypeLink type={arg.type} />
                 </li>
               );
             })}

@@ -1,5 +1,6 @@
 import TypeLink from '../TypeLink/TypeLink';
 import type { ArgumentType } from '../../../types/documentationTypes';
+import classes from './argument.module.scss';
 
 type ArgumentProps = {
   arg: ArgumentType;
@@ -7,7 +8,7 @@ type ArgumentProps = {
 const Argument = ({ arg }: ArgumentProps) => {
   return (
     <>
-      {arg.name}:
+      <span className={classes.argument}>{arg.name}: </span>
       <TypeLink type={arg.type} />
     </>
   );

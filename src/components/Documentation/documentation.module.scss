@@ -8,3 +8,10 @@
   right: 0;
   height: 100%;
 }
+
+.navigationLink {
+  display: inline-flex;
+  gap: 2px;
+  align-items: center;
+  margin-bottom: 5px;
+}

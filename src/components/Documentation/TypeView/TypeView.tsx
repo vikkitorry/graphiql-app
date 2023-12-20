@@ -2,6 +2,9 @@ import TypeLink from '../TypeLink/TypeLink';
 import FieldLink from '../FieldLink/FieldLink';
 import ArgumentList from '../ArgumentList/ArgumentList';
 import type { StackItem } from '../../../types/documentationTypes';
+import SectionHeading from '../SectionHeading/SectionHeading';
+import { TbSquareLetterF, TbSquareLetterE } from 'react-icons/tb';
+import classes from './type-view.module.scss';
 
 export type ViewProps = {
   viewProps: StackItem;
@@ -11,11 +14,11 @@ const TypeView = ({ viewProps }: ViewProps) => {
   const { name, description, fields, enumValues } = viewProps;
   return (
     <>
-      <h1>{name}</h1>
-      <p>{description}</p>
+      <h4>{name}</h4>
+      {description ? <p className={classes.description}>{description}</p> : null}
       {fields && fields.length ? (
         <>
-          <p>Fields</p>
+          <SectionHeading content="Fields" icon={<TbSquareLetterF />} />
           <ul>
             {fields.map((field) => {
               const type = field.type;
@@ -23,11 +26,9 @@ const TypeView = ({ viewProps }: ViewProps) => {
                 <li key={field.name}>
                   <div>
                     <FieldLink field={field} type={type} />
-                    <ArgumentList args={field.args} />
-                    :
-                    <TypeLink type={type} />
+                    <ArgumentList args={field.args} />: <TypeLink type={type} />
                   </div>
-                  <p>{field.description}</p>
+                  <p className={classes.description}>{field.description}</p>
                 </li>
               );
             })}
@@ -36,10 +37,14 @@ const TypeView = ({ viewProps }: ViewProps) => {
       ) : null}
       {enumValues ? (
         <>
-          <p>Enum Values</p>
+          <SectionHeading content="Enum Values" icon={<TbSquareLetterE />} />
           <ul>
             {enumValues.map((enumValue) => {
-              return <li key={enumValue.name}>{enumValue.name}</li>;
+              return (
+                <li key={enumValue.name} className={classes.enumValue}>
+                  {enumValue.name}
+                </li>
+              );
             })}
           </ul>
         </>

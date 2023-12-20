@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Drawer } from 'antd';
-import { QuestionCircleOutlined } from '@ant-design/icons';
+import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import Documentation from '../../components/Documentation/Documentation';
 import classes from './graphiql-page.module.scss';
 const GraphiQLPage = () => {
@@ -20,7 +20,7 @@ const GraphiQLPage = () => {
         <Button
           className={classes.documentationButton}
           type="default"
-          icon={<QuestionCircleOutlined />}
+          icon={<AiOutlineQuestionCircle size={20} />}
           onClick={toggleDocumentation}
           style={{ backgroundColor: documentationOpen ? 'rgba(0, 0, 0, 0.078)' : 'transparent' }}
         />

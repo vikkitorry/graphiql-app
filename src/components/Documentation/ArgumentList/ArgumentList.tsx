@@ -1,5 +1,6 @@
 import Argument from '../Argument/Argument';
 import type { ArgumentType } from '../../../types/documentationTypes';
+import classes from './argument-list.module.scss';
 
 type ArgumentListProps = {
   args: ReadonlyArray<ArgumentType>;
@@ -22,7 +23,7 @@ const ArgumentList = ({ args }: ArgumentListProps) => {
       <ul>
         {args.map((arg) => {
           return (
-            <li key={arg.name}>
+            <li key={arg.name} className={classes.argumentItem}>
               <Argument arg={arg} />
             </li>
           );
