@@ -23,7 +23,8 @@ const FieldView = ({ viewProps }: ViewProps) => {
             {args.map((arg) => {
               return (
                 <li key={arg.name} className={classes.argument}>
-                  {arg.name}: <TypeLink type={arg.type} />
+                  <span>{arg.name}: </span>
+                  <TypeLink type={arg.type} />
                 </li>
               );
             })}

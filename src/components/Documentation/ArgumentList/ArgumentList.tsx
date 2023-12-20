@@ -9,17 +9,15 @@ const ArgumentList = ({ args }: ArgumentListProps) => {
   if (!args || args.length === 0) return null;
   if (args.length === 1)
     return (
-      <>
+      <span>
         {'('}
-        <span>
-          <Argument arg={args[0]} />
-        </span>
+        <Argument arg={args[0]} />
         {')'}
-      </>
+      </span>
     );
   return (
     <>
-      {'('}
+      <span>{'('}</span>
       <ul>
         {args.map((arg) => {
           return (
@@ -29,8 +27,7 @@ const ArgumentList = ({ args }: ArgumentListProps) => {
           );
         })}
       </ul>
-
-      {')'}
+      <span>{')'}</span>
     </>
   );
 };

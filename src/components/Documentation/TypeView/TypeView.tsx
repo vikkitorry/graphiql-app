@@ -26,7 +26,9 @@ const TypeView = ({ viewProps }: ViewProps) => {
                 <li key={field.name}>
                   <div>
                     <FieldLink field={field} type={type} />
-                    <ArgumentList args={field.args} />: <TypeLink type={type} />
+                    <ArgumentList args={field.args} />
+                    <span>: </span>
+                    <TypeLink type={type} />
                   </div>
                   <p className={classes.description}>{field.description}</p>
                 </li>

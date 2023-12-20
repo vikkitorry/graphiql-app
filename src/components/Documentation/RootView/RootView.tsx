@@ -10,7 +10,6 @@ const RootView = () => {
   const { schema } = useContext(DocumentationContext);
   const rootQuery = schema?.getQueryType();
   const mutationQuery = schema?.getMutationType();
-  const subscriptionQuery = schema?.getSubscriptionType();
 
   return (
     <>
@@ -18,17 +17,23 @@ const RootView = () => {
       {schema ? (
         <>
           <SectionHeading content="Root Types" icon={<TbSquareLetterR />} />
-          <p>
-            {rootQuery ? (
-              <>
-                <span className={classes.field}>query: </span>
-                <TypeLink type={rootQuery} />
-              </>
-            ) : null}
-          </p>
-          {mutationQuery ? <p>{`mutation: ${mutationQuery?.name}`}</p> : null}
-          {subscriptionQuery ? <p>{`subscription: ${subscriptionQuery?.name}`}</p> : null}
-          <SectionHeading content="All Types" icon={<TbSquareLetterT />} />
+
+          {rootQuery ? (
+            <p>
+              <span className={classes.field}>query: </span>
+              <TypeLink type={rootQuery} />
+            </p>
+          ) : null}
+
+          {mutationQuery ? (
+            <p>
+              <span className={classes.field}>mutation: </span>
+              <TypeLink type={mutationQuery} />
+            </p>
+          ) : null}
+
+          <SectionHeading content="Types" icon={<TbSquareLetterT />} />
+
           {Object.values(schema.getTypeMap())
             .filter((type) => !type.name.startsWith('__') && type !== rootQuery)
             .map((type) => {
