@@ -6,8 +6,7 @@ import { TranslatorContext } from '../context/translatorContextProvider';
 import { translationData, translationErrorsData } from '../context/translationData/translationData';
 import { useState } from 'react';
 import { Language } from '../context/translatorContextProvider';
-import { Triangle } from 'react-loader-spinner';
-import { Flex } from 'antd';
+import Loader from '../components/Loader/Loader';
 
 type LayoutProps = {
   userLoggedIn: boolean;
@@ -32,15 +31,9 @@ const Layout = (props: LayoutProps) => {
       </div>
     </TranslatorContext.Provider>
   ) : (
-    <Flex className={classes.spinnerContainer} align={'center'} justify={'center'}>
-      <Triangle
-        height="140"
-        width="140"
-        color="black"
-        ariaLabel="triangle-loading"
-        visible={true}
-      />
-    </Flex>
+    <div className={classes.wrapper}>
+      <Loader />
+    </div>
   );
 };
 

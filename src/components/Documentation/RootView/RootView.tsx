@@ -9,33 +9,37 @@ const RootView = () => {
   const mutationQuery = schema?.getMutationType();
   const subscriptionQuery = schema?.getSubscriptionType();
 
-  return schema ? (
+  return (
     <>
-      <p>Documentation</p>
-      <p>Root Types</p>
-      <p>
-        {rootQuery ? (
-          <>
-            <span>query: </span>
-            <TypeLink type={rootQuery} />
-          </>
-        ) : null}
-      </p>
-      <p>{mutationQuery ? `mutation: ${mutationQuery?.name}` : null}</p>
-      <p>{subscriptionQuery ? `subscription: ${subscriptionQuery?.name}` : null}</p>
-      <p>All Schema Types</p>
-      {Object.values(schema.getTypeMap())
-        .filter((type) => !type.name.startsWith('__') && type !== rootQuery)
-        .map((type) => {
-          return (
-            <li key={type.name}>
-              <TypeLink type={type} />
-            </li>
-          );
-        })}
+      <h3>Documentation</h3>
+      {schema ? (
+        <>
+          <p>Root Types</p>
+          <p>
+            {rootQuery ? (
+              <>
+                <span>query: </span>
+                <TypeLink type={rootQuery} />
+              </>
+            ) : null}
+          </p>
+          {mutationQuery ? <p>{`mutation: ${mutationQuery?.name}`}</p> : null}
+          {subscriptionQuery ? <p>{`subscription: ${subscriptionQuery?.name}`}</p> : null}
+          <p>All Schema Types</p>
+          {Object.values(schema.getTypeMap())
+            .filter((type) => !type.name.startsWith('__') && type !== rootQuery)
+            .map((type) => {
+              return (
+                <li key={type.name}>
+                  <TypeLink type={type} />
+                </li>
+              );
+            })}
+        </>
+      ) : (
+        <EmptyView />
+      )}
     </>
-  ) : (
-    <EmptyView />
   );
 };
 
