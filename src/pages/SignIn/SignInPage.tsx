@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import { Form, Input, Button } from 'antd';
 import { Store } from 'antd/lib/form/interface';
 import { validateMessages, validatePassword } from '../../utils/helpers/validation';
+import { AppRoutes } from '../../routes/routeConfig/routeConfig';
 import Service from '../../app/service/service';
 import cls from './sign-in-page.module.scss';
 import { notification } from 'antd';
@@ -81,6 +82,9 @@ const SignInPage = () => {
             </Button>
           )}
         </Form.Item>
+        <p className={cls.desc}>
+          {data[lang].or} <a href={AppRoutes.SIGN_UP}>{data[lang].regLink}!</a>
+        </p>
       </Form>
     </section>
   );

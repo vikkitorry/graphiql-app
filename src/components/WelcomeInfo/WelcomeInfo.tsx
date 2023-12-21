@@ -1,40 +1,55 @@
+import { useContext } from 'react';
 import cls from './WelcomeInfo.module.scss';
+import cat from '../../assets/cat.gif';
 import cloudDark from '../../assets/cloudDark.svg';
 import natasha from '../../assets/natasha.png';
 import vika from '../../assets/vika.png';
 import maxim from '../../assets/maxim.png';
 import { Card } from 'antd';
+import { TranslatorContext } from '../../context/translatorContextProvider';
+import { cardsData } from './cardsData/cardsData';
 
 const WelcomeInfo = () => {
+  const { lang } = useContext(TranslatorContext);
   return (
     <div className={cls.container}>
       <div className={cls.cards}>
-        <Card title="Project" size={'small'} className={`${cls.card} ${cls.project}`}>
-          <p>This project is a clone of the famous tool - GraphiQL.</p>
-          <p>GraphiQL is a playground / IDE for graphQL requests.</p>
+        <Card
+          title={cardsData[lang].project.title}
+          size={'small'}
+          className={`${cls.card} ${cls.project}`}
+        >
+          <p>{cardsData[lang].project.data[0]}</p>
+          <p>{cardsData[lang].project.data[1]}</p>
         </Card>
-        <Card title="Developers" size={'small'} className={`${cls.card} ${cls.dev}`}>
+        <Card
+          title={cardsData[lang].developers.title}
+          size={'small'}
+          className={`${cls.card} ${cls.dev}`}
+        >
           <div className={cls.developer}>
-            <img src={natasha} alt="developer photo" />
-            <p>Natasha</p>
+            <img src={natasha} alt={cardsData[lang].developers.alt} />
+            <p>{cardsData[lang].developers.name.natasha}</p>
           </div>
           <div className={cls.developer}>
-            <img src={vika} alt="developer photo" />
-            <p>Viktoriia</p>
+            <img src={vika} alt={cardsData[lang].developers.alt} />
+            <p>{cardsData[lang].developers.name.vika}</p>
           </div>
           <div className={cls.developer}>
-            <img src={maxim} alt="developer photo" />
-            <p>Maxim</p>
+            <img src={maxim} alt={cardsData[lang].developers.alt} />
+            <p>{cardsData[lang].developers.name.maxim}</p>
           </div>
         </Card>
-        <Card title="Course" size={'small'} className={`${cls.card} ${cls.course}`}>
-          <p>
-            It is free-of-charge and community-based education program conducted by The Rolling
-            Scopes developer community since 2013.
-          </p>
+        <Card
+          title={cardsData[lang].course.title}
+          size={'small'}
+          className={`${cls.card} ${cls.course}`}
+        >
+          <p>{cardsData[lang].course.data}</p>
         </Card>
       </div>
-      <img src={cloudDark} className={cls.clouds} />
+      <img src={cat} className={cls.cat} />
+      <img src={cloudDark} className={cls.clouds}></img>
     </div>
   );
 };
