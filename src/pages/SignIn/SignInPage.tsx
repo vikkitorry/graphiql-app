@@ -8,6 +8,7 @@ import cls from './sign-in-page.module.scss';
 import { notification } from 'antd';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { TranslatorContext } from '../../context/translatorContextProvider';
+import { NavLink } from 'react-router-dom';
 
 const SignInPage = () => {
   const [form] = Form.useForm();
@@ -83,7 +84,7 @@ const SignInPage = () => {
           )}
         </Form.Item>
         <p className={cls.desc}>
-          {data[lang].or} <a href={AppRoutes.SIGN_UP}>{data[lang].regLink}!</a>
+          {data[lang].or} <NavLink to={AppRoutes.SIGN_UP}>{data[lang].regLink}!</NavLink>
         </p>
       </Form>
     </section>
