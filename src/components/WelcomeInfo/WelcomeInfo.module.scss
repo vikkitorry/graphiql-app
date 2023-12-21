@@ -1,46 +1,57 @@
 .container {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.welcomeInfo {
+.cards {
   position: relative;
-}
-
-.tittle {
-  margin-bottom: 40px;
+  display: flex;
+  top: 83px;
 }
 
 .card {
-  position: absolute;
-  width: 180px;
+  font-size: var(--font-size-s);
+  font-family: 'Finger Paint';
+  width: 170px;
   height: 220px;
   border: 3px solid var(--tittle-text-color);
   z-index: 1;
 }
 
-.one {
-  left: -20px;
+.project {
+  left: 15px;
   transform: rotate(-32deg);
 }
 
-.two {
-  right: 30%;
-  top: -25px;
+.dev {
+  margin: 0 auto;
+  top: -50px;
   transform: rotate(0deg);
 }
 
-.three {
-  right: -20px;
+.course {
+  right: 15px;
   transform: rotate(32deg);
 }
 
 .clouds {
   position: relative;
-  margin-top: 50px;
   width: 400px;
-  height: 400px;
+  height: auto;
   z-index: 10;
+}
+
+.developer {
+  margin-bottom: 5px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  img {
+    border: 3px solid var(--tittle-text-color);
+    border-radius: 50%;
+    width: 37px;
+    height: auto;
+  }
 }

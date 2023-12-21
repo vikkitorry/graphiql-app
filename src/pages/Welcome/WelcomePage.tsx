@@ -8,7 +8,8 @@ type WelcomePageProps = {
 
 const WelcomePage = ({ userLoggedIn }: WelcomePageProps) => {
   return (
-    <div className={classes.container}>
+    <section className={classes.container}>
+      <h2>Welcome Page</h2>
       <WelcomeInfo />
       <div className={classes.links}>
         {userLoggedIn ? (
@@ -28,7 +29,7 @@ const WelcomePage = ({ userLoggedIn }: WelcomePageProps) => {
           </>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 
