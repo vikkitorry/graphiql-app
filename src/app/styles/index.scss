@@ -5,11 +5,26 @@
 body {
   font: var(--font-m);
   color: var(--light-text-color);
+  overflow-x: hidden;
 }
+//ПРОВЕРИТЬ
+.app {
+  background: var(--bg-color);
+  min-height: 100vh;
+}
+
+.page-wrapper {
+  padding: 20px;
+}
+//
 
 a {
   color: var(--primary-color);
   &:hover {
     opacity: 0.8;
   }
+}
+
+li {
+  list-style: none;
 }
