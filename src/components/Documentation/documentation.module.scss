@@ -1,0 +1,17 @@
+.container {
+  display: block;
+  height: 100%;
+}
+
+.wrapper {
+  position: relative;
+  right: 0;
+  height: 100%;
+}
+
+.navigationLink {
+  display: inline-flex;
+  gap: 2px;
+  align-items: center;
+  margin-bottom: 5px;
+}

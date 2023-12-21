@@ -4,6 +4,7 @@
 body {
   font: var(--font-m);
   color: var(--primary-color);
+  overflow-x: hidden;
 }
 
 .app {
@@ -20,4 +21,8 @@ a {
   &:hover {
     opacity: 0.8;
   }
+}
+
+li {
+  list-style: none;
 }
