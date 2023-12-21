@@ -5,6 +5,7 @@ import { validateMessages, validatePassword } from '../../utils/helpers/validati
 import Service from '../../app/service/service';
 import cls from './sign-in-page.module.scss';
 import { notification } from 'antd';
+import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { TranslatorContext } from '../../context/translatorContextProvider';
 
 const SignInPage = () => {
@@ -40,9 +41,9 @@ const SignInPage = () => {
         onFinish={onFinish}
         validateMessages={validateMessages}
         className={cls.container}
+        layout={'vertical'}
       >
         <Form.Item
-          label={data[lang].email}
           name="email"
           rules={[
             {
@@ -51,20 +52,23 @@ const SignInPage = () => {
             },
           ]}
         >
-          <Input placeholder={data[lang].email} />
+          <Input
+            prefix={<MailOutlined className="site-form-item-icon" />}
+            placeholder={data[lang].email}
+          />
         </Form.Item>
 
-        <Form.Item
-          label={data[lang].password}
-          name="password"
-          rules={[{ required: true }, { validator: validatePassword }]}
-        >
-          <Input.Password placeholder={data[lang].password} />
+        <Form.Item name="password" rules={[{ validator: validatePassword }]}>
+          <Input.Password
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            placeholder={data[lang].password}
+          />
         </Form.Item>
 
         <Form.Item shouldUpdate>
           {() => (
             <Button
+              className={cls.btn}
               type="primary"
               htmlType="submit"
               disabled={

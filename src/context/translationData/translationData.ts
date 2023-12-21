@@ -13,7 +13,7 @@ export const translationData = {
     main: 'Главная',
     signIn: 'Войти',
     signOut: 'Выйти',
-    signUp: 'Зарегестрироваться',
+    signUp: 'Зарегистрироваться',
     email: 'Почта',
     password: 'Пароль',
     welcome: 'Добро пожаловать',

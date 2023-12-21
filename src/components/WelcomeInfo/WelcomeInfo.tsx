@@ -9,11 +9,11 @@ const WelcomeInfo = () => {
   return (
     <div className={cls.container}>
       <div className={cls.cards}>
-        <Card title="Project" size={'small'} className={`${cls.card} ${cls.project}`} hoverable>
+        <Card title="Project" size={'small'} className={`${cls.card} ${cls.project}`}>
           <p>This project is a clone of the famous tool - GraphiQL.</p>
-          <p>GraphiQL is a playground / IDE for graphQL requests...</p>
+          <p>GraphiQL is a playground / IDE for graphQL requests.</p>
         </Card>
-        <Card title="Developers" size={'small'} className={`${cls.card} ${cls.dev}`} hoverable>
+        <Card title="Developers" size={'small'} className={`${cls.card} ${cls.dev}`}>
           <div className={cls.developer}>
             <img src={natasha} alt="developer photo" />
             <p>Natasha</p>
@@ -27,10 +27,10 @@ const WelcomeInfo = () => {
             <p>Maxim</p>
           </div>
         </Card>
-        <Card title="Course" size={'small'} className={`${cls.card} ${cls.course}`} hoverable>
+        <Card title="Course" size={'small'} className={`${cls.card} ${cls.course}`}>
           <p>
-            RS School is free-of-charge and community-based education program conducted by The
-            Rolling Scopes developer...
+            It is free-of-charge and community-based education program conducted by The Rolling
+            Scopes developer community since 2013.
           </p>
         </Card>
       </div>
