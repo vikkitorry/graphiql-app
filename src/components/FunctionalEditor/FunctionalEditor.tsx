@@ -1,8 +1,9 @@
+import { useCallback } from 'react';
 import { Flex, Button, Tooltip } from 'antd';
 import { SendOutlined, ClearOutlined } from '@ant-design/icons';
+import { json } from '@codemirror/lang-json';
 import CodeMirror from '@uiw/react-codemirror';
 import classes from './functional-editor.module.scss';
-import { useCallback } from 'react';
 
 const FunctionalEditor = () => {
   const onChangeCodeMirror = useCallback((value: string) => {
@@ -16,6 +17,7 @@ const FunctionalEditor = () => {
         height="100%"
         className={classes.codemirror}
         onChange={onChangeCodeMirror}
+        extensions={[json()]}
       />
 
       <Tooltip title="Execute query">

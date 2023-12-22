@@ -32,6 +32,7 @@
     "react-loader-spinner": "^6.1.0"
   },
   "devDependencies": {
+    "@codemirror/lang-json": "^6.0.1",
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/react": "^14.0.0",
     "@types/react": "^18.2.37",

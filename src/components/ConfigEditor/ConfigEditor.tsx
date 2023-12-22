@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button, Drawer } from 'antd';
+import { json } from '@codemirror/lang-json';
 import CodeMirror from '@uiw/react-codemirror';
 import classes from './config-editor.module.scss';
 
@@ -32,7 +33,7 @@ const ConfigEditor = () => {
         open={openVariables}
         getContainer={false}
       >
-        <CodeMirror theme="light" height="250px" />
+        <CodeMirror theme="light" height="250px" extensions={[json()]} />
       </Drawer>
 
       <Button onClick={showHeaders} className={classes.button}>
@@ -45,7 +46,7 @@ const ConfigEditor = () => {
         open={openHeaders}
         getContainer={false}
       >
-        <CodeMirror theme="light" height="250px" />
+        <CodeMirror theme="light" height="250px" extensions={[json()]} />
       </Drawer>
     </div>
   );

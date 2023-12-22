@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Button, Drawer } from 'antd';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { Flex, Input } from 'antd';
+import { json } from '@codemirror/lang-json';
+import CodeMirror from '@uiw/react-codemirror';
 import Documentation from '../../components/Documentation/Documentation';
 import FunctionalEditor from '../../components/FunctionalEditor/FunctionalEditor';
 import ConfigEditor from '../../components/ConfigEditor/ConfigEditor';
@@ -37,7 +39,13 @@ const GraphiQLPage = () => {
         </Flex>
 
         <Flex className={classes.result}>
-          <div></div>
+          <CodeMirror
+            theme="light"
+            height="100%"
+            className={classes.codemirror}
+            extensions={[json()]}
+            editable={false}
+          />
         </Flex>
 
         <Drawer
