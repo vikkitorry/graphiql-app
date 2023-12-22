@@ -5,12 +5,6 @@
   padding: 10px;
 }
 
-.container {
-  position: relative;
-  height: 100%;
-  width: 100%;
-}
-
 .documentationButton {
   margin-left: auto;
   border-radius: 2px;
@@ -35,7 +29,9 @@ input {
 }
 
 .body {
+  position: relative;
   height: 100%;
+  width: 100%;
   display: flex;
   border: 2px solid #00000014;
 }

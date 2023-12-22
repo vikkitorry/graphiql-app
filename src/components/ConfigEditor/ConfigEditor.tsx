@@ -1,44 +1,52 @@
-import type { TabsProps } from 'antd';
-import { ConfigProvider, Tabs } from 'antd';
-import { CloseOutlined } from '@ant-design/icons';
+import { useState } from 'react';
+import { Button, Drawer } from 'antd';
 import CodeMirror from '@uiw/react-codemirror';
 import classes from './config-editor.module.scss';
 
-const items: TabsProps['items'] = [
-  {
-    key: '1',
-    label: 'Variables',
-    children: <CodeMirror theme="light" height="250px" />,
-  },
-  {
-    key: '2',
-    label: 'Headers',
-    children: <CodeMirror theme="light" height="250px" />,
-  },
-  {
-    key: '3',
-    label: '',
-    icon: <CloseOutlined />,
-  },
-];
-
 const ConfigEditor = () => {
+  const [openVariables, setOpenVariables] = useState(false);
+  const [openHeaders, setOpenHeaders] = useState(false);
+
+  const showVariables = () => {
+    setOpenVariables(true);
+  };
+
+  const showHeaders = () => {
+    setOpenHeaders(true);
+  };
+
+  const onCloseDrawer = () => {
+    setOpenVariables(false);
+    setOpenHeaders(false);
+  };
+
   return (
     <div className={classes.config}>
-      <ConfigProvider
-        theme={{
-          token: {
-            colorBorderSecondary: 'transparent',
-          },
-          components: {
-            Tabs: {
-              horizontalItemPadding: '16px 40px 0px',
-            },
-          },
-        }}
+      <Button onClick={showVariables} className={classes.button}>
+        Variables
+      </Button>
+      <Drawer
+        title="Variables"
+        placement="bottom"
+        onClose={onCloseDrawer}
+        open={openVariables}
+        getContainer={false}
       >
-        <Tabs defaultActiveKey="3" items={items} indicatorSize={0} />
-      </ConfigProvider>
+        <CodeMirror theme="light" height="250px" />
+      </Drawer>
+
+      <Button onClick={showHeaders} className={classes.button}>
+        Headers
+      </Button>
+      <Drawer
+        title="Headers"
+        placement="bottom"
+        onClose={onCloseDrawer}
+        open={openHeaders}
+        getContainer={false}
+      >
+        <CodeMirror theme="light" height="250px" />
+      </Drawer>
     </div>
   );
 };

@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Button, Drawer } from 'antd';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
-import Documentation from '../../components/Documentation/Documentation';
-import classes from './graphiql-page.module.scss';
 import { Flex, Input } from 'antd';
+import Documentation from '../../components/Documentation/Documentation';
 import FunctionalEditor from '../../components/FunctionalEditor/FunctionalEditor';
 import ConfigEditor from '../../components/ConfigEditor/ConfigEditor';
+import classes from './graphiql-page.module.scss';
 
 const GraphiQLPage = () => {
   const [documentationOpen, setDocumentationOpen] = useState(false);
@@ -39,18 +39,17 @@ const GraphiQLPage = () => {
         <Flex className={classes.result}>
           <div></div>
         </Flex>
-        <div className={classes.container}>
-          <Drawer
-            placement="right"
-            closable={false}
-            mask={false}
-            onClose={onClose}
-            open={documentationOpen}
-            getContainer={false}
-          >
-            <Documentation />
-          </Drawer>
-        </div>
+
+        <Drawer
+          placement="right"
+          closable={false}
+          mask={false}
+          onClose={onClose}
+          open={documentationOpen}
+          getContainer={false}
+        >
+          <Documentation />
+        </Drawer>
       </Flex>
     </Flex>
   );
