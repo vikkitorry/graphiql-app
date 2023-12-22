@@ -7,6 +7,7 @@ import cls from './sign-up-page.module.scss';
 import { notification } from 'antd';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { TranslatorContext } from '../../context/translatorContextProvider';
+import { handleFirebaseError } from '../../utils/helpers/handleFirebaseError';
 
 const SignUpPage = () => {
   const [form] = Form.useForm();
@@ -23,9 +24,10 @@ const SignUpPage = () => {
     try {
       await Service.signUp(email, password);
     } catch (err) {
+      const message = handleFirebaseError(err as Error);
       api.error({
-        message: `Error`,
-        description: `${err}`,
+        message: lang === 'en' ? `Error` : 'Ошибка',
+        description: `${message[lang]}`,
         placement: 'top',
       });
     }
