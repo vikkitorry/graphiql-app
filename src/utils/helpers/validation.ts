@@ -14,6 +14,8 @@ export const validatePassword = async (_: unknown, value: string) => {
     await Promise.reject('Password must contain 1 special character');
   } else if (!/\d/.test(value)) {
     await Promise.reject('Password must contain 1 digit');
+  } else if (value.length === 0) {
+    await Promise.reject('Password is required!');
   }
   return await Promise.resolve();
 };

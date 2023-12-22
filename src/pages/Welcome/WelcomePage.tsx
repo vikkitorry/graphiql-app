@@ -1,28 +1,39 @@
 import { NavLink } from 'react-router-dom';
+import { useContext } from 'react';
 import classes from './welcome-page.module.scss';
+import WelcomeInfo from '../../components/WelcomeInfo/WelcomeInfo';
+import { TranslatorContext } from '../../context/translatorContextProvider';
+import { AppRoutes } from '../../routes/routeConfig/routeConfig';
 
 type WelcomePageProps = {
   userLoggedIn: boolean;
 };
 
 const WelcomePage = ({ userLoggedIn }: WelcomePageProps) => {
+  const { lang, data } = useContext(TranslatorContext);
   return (
-    <div className={classes.container}>
-      <h2>Welcome Page</h2>
-
+    <section className={classes.container}>
+      <h2>{data[lang].welcomePage}</h2>
+      <WelcomeInfo />
       <div className={classes.links}>
         {userLoggedIn ? (
           <>
-            <NavLink to={'/graphi-ql'}>GraphiQL</NavLink>
+            <NavLink to={AppRoutes.GRAPHI_QL} className={classes.link}>
+              {data[lang].goToGraphi}
+            </NavLink>
           </>
         ) : (
           <>
-            <NavLink to={'/sign-in'}>Sign In</NavLink>
-            <NavLink to={'/sign-up'}>Sign Up</NavLink>
+            <NavLink to={AppRoutes.SIGN_IN} className={classes.link}>
+              {data[lang].signIn}
+            </NavLink>
+            <NavLink to={AppRoutes.SIGN_UP} className={`${classes.link} ${classes.linkColor}`}>
+              {data[lang].signUp}
+            </NavLink>
           </>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

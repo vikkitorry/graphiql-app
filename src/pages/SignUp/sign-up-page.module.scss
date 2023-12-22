@@ -1,6 +1,11 @@
 .container {
-  max-width: 500px;
+  width: 350px;
   margin-top: 20px;
   padding: 20px;
-  border: 1px solid black;
+  border: 3px solid var(--tittle-text-color);
+}
+
+.btn {
+  margin-top: 10px;
+  width: 100%;
 }
