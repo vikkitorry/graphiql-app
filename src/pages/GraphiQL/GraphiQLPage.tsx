@@ -3,8 +3,14 @@ import { Button, Drawer, Tooltip } from 'antd';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { buildClientSchema, GraphQLSchema } from 'graphql';
 import { INTROSPECTION_QUERY } from '../../constants/constants';
+import { Flex, Input } from 'antd';
+import { json } from '@codemirror/lang-json';
+import CodeMirror from '@uiw/react-codemirror';
 import Documentation from '../../components/Documentation/Documentation';
+import FunctionalEditor from '../../components/FunctionalEditor/FunctionalEditor';
+import ConfigEditor from '../../components/ConfigEditor/ConfigEditor';
 import classes from './graphiql-page.module.scss';
+
 const GraphiQLPage = () => {
   const [documentationOpen, setDocumentationOpen] = useState(false);
   const [schema, setSchema] = useState<GraphQLSchema | null>(null);
@@ -40,8 +46,9 @@ const GraphiQLPage = () => {
   };
 
   return (
-    <>
+    <Flex className={classes.content}>
       <div className={classes.header}>
+        <Input placeholder="Enter the API endpoint" className={classes.request} />
         <Tooltip title="Explore API Documentation">
           <Button
             className={classes.documentationButton}
@@ -53,21 +60,35 @@ const GraphiQLPage = () => {
           />
         </Tooltip>
       </div>
+      <Flex className={classes.body}>
+        <Flex className={classes.settings}>
+          <FunctionalEditor />
+          <ConfigEditor />
+        </Flex>
+
+        <Flex className={classes.result}>
+          <CodeMirror
+            theme="light"
+            height="100%"
+            className={classes.codemirror}
+            extensions={[json()]}
+            editable={false}
+          />
+        </Flex>
+      </Flex>
       {schema && (
-        <div className={classes.container}>
-          <Drawer
-            placement="right"
-            closable={false}
-            mask={false}
-            onClose={onClose}
-            open={documentationOpen}
-            getContainer={false}
-          >
-            <Documentation schema={schema} />
-          </Drawer>
-        </div>
+        <Drawer
+          placement="right"
+          closable={false}
+          mask={false}
+          onClose={onClose}
+          open={documentationOpen}
+          getContainer={false}
+        >
+          <Documentation schema={schema} />
+        </Drawer>
       )}
-    </>
+    </Flex>
   );
 };
 

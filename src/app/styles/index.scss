@@ -1,19 +1,13 @@
 @import 'reset';
+@import url(https://fonts.googleapis.com/css?family=Shantell+Sans);
+@import url(https://fonts.googleapis.com/css?family=Finger+Paint);
 @import 'variables/global';
 
 body {
   font: var(--font-m);
-  color: var(--primary-color);
+  font-family: var(--font-family-main);
+  color: var(--light-text-color);
   overflow-x: hidden;
-}
-
-.app {
-  background: var(--bg-color);
-  min-height: 100vh;
-}
-
-.page-wrapper {
-  padding: 20px;
 }
 
 a {
