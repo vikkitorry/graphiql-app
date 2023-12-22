@@ -57,20 +57,15 @@ const Documentation = () => {
             {stack.length > 1 ? (
               <h5>
                 <a
+                  className={classes.navigationLink}
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    setStack((current) => {
-                      return current.filter((item, idx) => {
-                        if (idx !== current.length - 1) return item;
-                      });
-                    });
+                    setStack((current) => current.slice(0, -1));
                   }}
                 >
-                  <div className={classes.navigationLink}>
-                    <span>&lt;</span>
-                    <span>{stack.at(-2)?.name}</span>
-                  </div>
+                  <span>&lt;</span>
+                  <span>{stack.at(-2)?.name}</span>
                 </a>
               </h5>
             ) : null}
