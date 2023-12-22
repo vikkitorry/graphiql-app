@@ -4,7 +4,10 @@
   align-items: center;
   width: 100%;
   padding: 15px;
-  background-color: rgba(0, 0, 0, 0.078);
+  background-color: var(--light-panel-bg-color);
+  a {
+    font-family: var(--font-family-main);
+  }
 }
 
 .logobox {
@@ -12,16 +15,17 @@
 }
 
 .logo {
-  width: 50px;
-
   & img {
-    width: 100%;
-    height: 100%;
+    width: 140px;
+    height: auto;
   }
 }
 
 .mainLink {
+  font-weight: 800;
+  font-size: var(--font-size-l);
   flex: 1 1 300px;
+  color: var(--tittle-text-color);
 }
 
 .authLinks {

@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+}
+
+.container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.documentationButton {
+  margin-left: auto;
+  border-radius: 2px;
+  border: 1px solid rgb(118, 118, 118);
+}
+
+input {
+  flex-grow: 1;
+}

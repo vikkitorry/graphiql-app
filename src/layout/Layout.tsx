@@ -3,11 +3,10 @@ import classes from './layout.module.scss';
 import Header from '../components/header/Header';
 import Footer from '../components/Footer/Footer';
 import { TranslatorContext } from '../context/translatorContextProvider';
-import { translationData, translationErrorsData } from '../context/translationData/translationData';
+import { translationData } from '../context/translationData/translationData';
 import { useState } from 'react';
 import { Language } from '../context/translatorContextProvider';
-import { Triangle } from 'react-loader-spinner';
-import { Flex } from 'antd';
+import Loader from '../components/Loader/Loader';
 
 type LayoutProps = {
   userLoggedIn: boolean;
@@ -20,9 +19,7 @@ const Layout = (props: LayoutProps) => {
   const [lang, setLang] = useState<Language>('en');
 
   return !isLoading ? (
-    <TranslatorContext.Provider
-      value={{ lang, data: translationData, errorsData: translationErrorsData, setLang }}
-    >
+    <TranslatorContext.Provider value={{ lang, data: translationData, setLang }}>
       <div className={classes.wrapper}>
         <Header userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn} />
         <main className={classes.main}>
@@ -32,15 +29,9 @@ const Layout = (props: LayoutProps) => {
       </div>
     </TranslatorContext.Provider>
   ) : (
-    <Flex className={classes.spinnerContainer} align={'center'} justify={'center'}>
-      <Triangle
-        height="140"
-        width="140"
-        color="black"
-        ariaLabel="triangle-loading"
-        visible={true}
-      />
-    </Flex>
+    <div className={classes.wrapper}>
+      <Loader />
+    </div>
   );
 };
 
