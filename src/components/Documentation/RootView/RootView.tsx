@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import { DocumentationContext } from '../../../context/documentationContext';
-import EmptyView from '../EmptyView/EmptyView';
 import TypeLink from '../TypeLink/TypeLink';
 import SectionHeading from '../SectionHeading/SectionHeading';
 import { TbSquareLetterR, TbSquareLetterT } from 'react-icons/tb';
@@ -14,7 +13,7 @@ const RootView = () => {
   return (
     <>
       <h5>Documentation</h5>
-      {schema ? (
+      {schema && (
         <>
           <SectionHeading content="Root Types" icon={<TbSquareLetterR />} />
 
@@ -44,8 +43,6 @@ const RootView = () => {
               );
             })}
         </>
-      ) : (
-        <EmptyView />
       )}
     </>
   );

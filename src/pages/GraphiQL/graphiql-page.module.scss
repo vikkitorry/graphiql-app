@@ -13,8 +13,9 @@
 
 .documentationButton {
   margin-left: auto;
-  border-radius: 2px;
-  border: 1px solid rgb(118, 118, 118);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 input {
