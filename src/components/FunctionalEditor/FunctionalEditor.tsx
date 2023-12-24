@@ -1,11 +1,15 @@
 import { useCallback } from 'react';
 import { Flex, Button, Tooltip } from 'antd';
 import { SendOutlined, ClearOutlined } from '@ant-design/icons';
-import { json } from '@codemirror/lang-json';
 import CodeMirror from '@uiw/react-codemirror';
+import { graphql } from 'cm6-graphql';
+import type { GraphQLSchema } from 'graphql';
 import classes from './functional-editor.module.scss';
 
-const FunctionalEditor = () => {
+type FunctionalEditorProps = {
+  schema?: GraphQLSchema;
+};
+const FunctionalEditor = ({ schema }: FunctionalEditorProps) => {
   const onChangeCodeMirror = useCallback((value: string) => {
     console.log('value:', value);
   }, []);
@@ -17,7 +21,7 @@ const FunctionalEditor = () => {
         height="100%"
         className={classes.codemirror}
         onChange={onChangeCodeMirror}
-        extensions={[json()]}
+        extensions={[graphql(schema)]}
       />
 
       <Tooltip title="Execute query">
