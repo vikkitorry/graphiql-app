@@ -12,7 +12,6 @@ const RootView = () => {
 
   return (
     <>
-      <h5>Documentation</h5>
       {schema && (
         <>
           <SectionHeading content="Root Types" icon={<TbSquareLetterR />} />

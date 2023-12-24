@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
-import { Button, Drawer, Tooltip } from 'antd';
+import { useEffect, useState, useCallback } from 'react';
+import { Button, Drawer, Tooltip, Flex, Input, notification } from 'antd';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
+import { SyncOutlined } from '@ant-design/icons';
 import { buildClientSchema, GraphQLSchema } from 'graphql';
+import { useDebounce } from 'use-debounce';
 import { INTROSPECTION_QUERY } from '../../constants/constants';
-import { Flex, Input } from 'antd';
 import { json } from '@codemirror/lang-json';
 import CodeMirror from '@uiw/react-codemirror';
 import Documentation from '../../components/Documentation/Documentation';
@@ -14,11 +15,16 @@ import classes from './graphiql-page.module.scss';
 const GraphiQLPage = () => {
   const [documentationOpen, setDocumentationOpen] = useState(false);
   const [schema, setSchema] = useState<GraphQLSchema | null>(null);
+  const [schemaLoading, setSchemaLoading] = useState(false);
+  const [apiURL, setApiURL] = useState<string>('');
+  const [debouncedApiURL] = useDebounce(apiURL, 500);
+  const [api, contextHolder] = notification.useNotification();
 
-  useEffect(() => {
-    const getSchema = async () => {
+  const getSchema = useCallback(async () => {
+    if (debouncedApiURL) {
       try {
-        const schemaFromApi = await fetch('https://rickandmortyapi.com/graphql', {
+        setSchemaLoading(true);
+        const schemaFromApi = await fetch(debouncedApiURL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -29,66 +35,94 @@ const GraphiQLPage = () => {
         });
         const { data } = await schemaFromApi.json();
         setSchema(buildClientSchema(data));
-      } catch (error) {
-        return null;
+      } catch {
+        api.error({
+          message: `Error`,
+          description: `Connection could not be established. Please check the URL (make sure the chosen API supports CORS).`,
+          placement: 'top',
+        });
+      } finally {
+        setSchemaLoading(false);
       }
-    };
+    }
+  }, [debouncedApiURL, api]);
 
-    getSchema();
-  }, []);
-
-  const toggleDocumentation = () => {
-    setDocumentationOpen(!documentationOpen);
-  };
-
-  const onClose = () => {
+  const onApiURLSubmit = useCallback(() => {
+    setSchema(null);
     setDocumentationOpen(false);
-  };
+    getSchema();
+  }, [getSchema]);
+
+  useEffect(() => {
+    onApiURLSubmit();
+  }, [onApiURLSubmit]);
 
   return (
-    <Flex className={classes.content}>
-      <div className={classes.header}>
-        <Input placeholder="Enter the API endpoint" className={classes.request} />
-        <Tooltip title="Explore API Documentation">
-          <Button
-            className={classes.documentationButton}
-            size="large"
-            icon={<AiOutlineQuestionCircle size={20} />}
-            onClick={toggleDocumentation}
-            style={{ backgroundColor: documentationOpen ? 'rgba(0, 0, 0, 0.078)' : 'transparent' }}
-            disabled={!schema}
+    <>
+      {contextHolder}
+      <Flex className={classes.content}>
+        <div className={classes.header}>
+          <Input
+            value={apiURL}
+            placeholder="Enter the API endpoint"
+            className={classes.request}
+            onChange={(e) => {
+              setApiURL(e.target.value);
+            }}
+            onPressEnter={onApiURLSubmit}
+            suffix={
+              <Button
+                type="text"
+                size="small"
+                icon={<SyncOutlined />}
+                loading={schemaLoading}
+                onClick={onApiURLSubmit}
+              />
+            }
           />
-        </Tooltip>
-      </div>
-      <Flex className={classes.body}>
-        <Flex className={classes.settings}>
-          <FunctionalEditor />
-          <ConfigEditor />
-        </Flex>
+          <Tooltip title="Explore API Documentation">
+            <Button
+              className={classes.documentationButton}
+              icon={<AiOutlineQuestionCircle size={20} />}
+              onClick={() => setDocumentationOpen(!documentationOpen)}
+              style={{
+                backgroundColor: documentationOpen ? 'rgba(0, 0, 0, 0.078)' : 'transparent',
+              }}
+              disabled={!schema}
+            />
+          </Tooltip>
+        </div>
+        <Flex className={classes.body}>
+          <Flex className={classes.settings}>
+            <FunctionalEditor />
+            <ConfigEditor />
+          </Flex>
 
-        <Flex className={classes.result}>
-          <CodeMirror
-            theme="light"
-            height="100%"
-            className={classes.codemirror}
-            extensions={[json()]}
-            editable={false}
-          />
+          <Flex className={classes.result}>
+            <CodeMirror
+              theme="light"
+              height="100%"
+              className={classes.codemirror}
+              extensions={[json()]}
+              editable={false}
+            />
+          </Flex>
+          {schema && (
+            <Drawer
+              placement="right"
+              closable={true}
+              title={'API Documentation'}
+              mask={false}
+              onClose={() => setDocumentationOpen(false)}
+              open={documentationOpen}
+              getContainer={false}
+            >
+              <Documentation schema={schema} />
+            </Drawer>
+          )}
         </Flex>
       </Flex>
-      {schema && (
-        <Drawer
-          placement="right"
-          closable={false}
-          mask={false}
-          onClose={onClose}
-          open={documentationOpen}
-          getContainer={false}
-        >
-          <Documentation schema={schema} />
-        </Drawer>
-      )}
-    </Flex>
+    </>
   );
 };
 

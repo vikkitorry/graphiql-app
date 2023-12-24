@@ -1,6 +1,6 @@
 import { useState, lazy, Suspense } from 'react';
 import { DocumentationContext } from '../../context/documentationContext';
-import Loader from '../Loader/Loader';
+import { Skeleton } from 'antd';
 import type { StackItem } from '../../types/documentationTypes';
 import classes from './documentation.module.scss';
 import { GraphQLSchema } from 'graphql';
@@ -13,7 +13,7 @@ type DocumentationViewProps = {
   schema: GraphQLSchema;
 };
 const DocumentationView = ({ schema }: DocumentationViewProps) => {
-  const [stack, setStack] = useState<StackItem[]>([{ name: 'Documentation', view: 'root' }]);
+  const [stack, setStack] = useState<StackItem[]>([{ name: 'Root', view: 'root' }]);
   const currentStackItem = stack.at(-1);
   let currentView = null;
   if (currentStackItem) {
@@ -40,7 +40,7 @@ const DocumentationView = ({ schema }: DocumentationViewProps) => {
             </a>
           </h5>
         ) : null}
-        <Suspense fallback={<Loader />}>{currentView}</Suspense>
+        <Suspense fallback={<Skeleton />}>{currentView}</Suspense>
       </div>
     </DocumentationContext.Provider>
   );
