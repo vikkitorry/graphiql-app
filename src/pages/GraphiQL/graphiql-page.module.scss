@@ -7,12 +7,9 @@
 
 .documentationButton {
   margin-left: auto;
-  border-radius: 2px;
-  border: 1px solid rgb(118, 118, 118);
-}
-
-input {
-  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .content {
@@ -22,8 +19,13 @@ input {
   flex-direction: column;
 }
 
+.form {
+  display: flex;
+  gap: 10px;
+  flex-grow: 1;
+}
+
 .request {
-  width: 50%;
   align-self: center;
   margin-bottom: 15px;
 }
