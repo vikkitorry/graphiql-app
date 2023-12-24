@@ -94,7 +94,7 @@ const GraphiQLPage = () => {
         </div>
         <Flex className={classes.body}>
           <Flex className={classes.settings}>
-            <FunctionalEditor {...(schema ? { schema } : {})} />
+            <FunctionalEditor {...{ schema }} />
             <ConfigEditor />
           </Flex>
 

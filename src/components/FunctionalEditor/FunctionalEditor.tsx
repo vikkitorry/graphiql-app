@@ -7,7 +7,7 @@ import type { GraphQLSchema } from 'graphql';
 import classes from './functional-editor.module.scss';
 
 type FunctionalEditorProps = {
-  schema?: GraphQLSchema;
+  schema: GraphQLSchema | null;
 };
 const FunctionalEditor = ({ schema }: FunctionalEditorProps) => {
   const onChangeCodeMirror = useCallback((value: string) => {
@@ -21,7 +21,7 @@ const FunctionalEditor = ({ schema }: FunctionalEditorProps) => {
         height="100%"
         className={classes.codemirror}
         onChange={onChangeCodeMirror}
-        extensions={[graphql(schema)]}
+        extensions={schema ? [graphql(schema)] : []}
       />
 
       <Tooltip title="Execute query">
