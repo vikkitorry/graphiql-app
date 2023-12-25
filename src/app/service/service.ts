@@ -31,7 +31,7 @@ export default class Service {
       });
     } catch (err) {
       if (err instanceof FirebaseError) {
-        throw new Error(err.message);
+        throw new Error(err.code);
       }
     }
   }
@@ -41,7 +41,7 @@ export default class Service {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
       if (err instanceof FirebaseError) {
-        throw new Error(err.message);
+        throw new Error(err.code);
       }
     }
   }
