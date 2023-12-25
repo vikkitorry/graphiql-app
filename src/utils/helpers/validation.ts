@@ -6,7 +6,7 @@ export const validateMessages = {
 };
 
 export const validatePassword = async (_: unknown, value: string) => {
-  if (!/[a-zA-Z]/.test(value)) {
+  if (!/[A-zА-я]/.test(value)) {
     await Promise.reject('Password must have 1 letter');
   } else if (value.length < 8) {
     await Promise.reject('Password must have minimum 8 chars');
