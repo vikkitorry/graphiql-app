@@ -60,7 +60,7 @@ const GraphiQLPage = () => {
   return (
     <>
       {contextHolder}
-      <Flex className={classes.content}>
+      <Flex className={classes.content} data-testid="graphiQLPage">
         <div className={classes.header}>
           <Input
             value={apiURL}

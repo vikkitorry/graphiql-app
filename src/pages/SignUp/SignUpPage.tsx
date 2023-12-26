@@ -70,6 +70,7 @@ const SignUpPage = () => {
         <Form.Item shouldUpdate>
           {() => (
             <Button
+              data-testid="submit"
               className={cls.btn}
               type="primary"
               htmlType="submit"
