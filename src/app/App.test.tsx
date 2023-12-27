@@ -26,4 +26,14 @@ describe('App', () => {
     const loader = screen.getByTestId('ball-triangle-loading');
     expect(loader).toBeInTheDocument();
   });
+
+  test('renders not found page', () => {
+    render(
+      <MemoryRouter initialEntries={['/test']}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByText('Page not found')).toBeInTheDocument();
+  });
 });
