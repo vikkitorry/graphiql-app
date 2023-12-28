@@ -1,24 +1,28 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useContext } from 'react';
 import { Button, Drawer, Tooltip, Flex, Input, notification } from 'antd';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { SyncOutlined } from '@ant-design/icons';
 import { buildClientSchema, GraphQLSchema } from 'graphql';
 import { useDebounce } from 'use-debounce';
 import { INTROSPECTION_QUERY } from '../../constants/constants';
+import { TranslatorContext } from '../../context/translatorContextProvider';
 import { json } from '@codemirror/lang-json';
 import CodeMirror from '@uiw/react-codemirror';
 import Documentation from '../../components/Documentation/Documentation';
 import FunctionalEditor from '../../components/FunctionalEditor/FunctionalEditor';
+import Loader from '../../components/Loader/Loader';
 import classes from './graphiql-page.module.scss';
 
 const GraphiQLPage = () => {
   const [documentationOpen, setDocumentationOpen] = useState(false);
   const [schema, setSchema] = useState<GraphQLSchema | null>(null);
   const [schemaLoading, setSchemaLoading] = useState(false);
+  const [responseLoading, setResponseLoading] = useState(false);
   const [apiURL, setApiURL] = useState<string>('');
   const [debouncedApiURL] = useDebounce(apiURL, 500);
   const [api, contextHolder] = notification.useNotification();
   const [graphqlResponse, setGraphqlResponse] = useState('');
+  const { lang, data } = useContext(TranslatorContext);
 
   const getSchema = useCallback(async () => {
     if (debouncedApiURL) {
@@ -64,7 +68,7 @@ const GraphiQLPage = () => {
         <div className={classes.header}>
           <Input
             value={apiURL}
-            placeholder="Enter the API endpoint"
+            placeholder={data[lang].apiInputPlaceholder}
             className={classes.request}
             onChange={(e) => {
               setApiURL(e.target.value);
@@ -98,18 +102,23 @@ const GraphiQLPage = () => {
               {...{ schema }}
               apiUrl={apiURL}
               setGraphqlResponse={setGraphqlResponse}
+              setResponseLoading={setResponseLoading}
             />
           </Flex>
 
           <Flex className={classes.result}>
-            <CodeMirror
-              theme="light"
-              height="100%"
-              className={classes.codemirror}
-              extensions={[json()]}
-              editable={false}
-              value={graphqlResponse}
-            />
+            {responseLoading ? (
+              <Loader />
+            ) : (
+              <CodeMirror
+                theme="light"
+                height="100%"
+                className={classes.codemirror}
+                extensions={[json()]}
+                editable={false}
+                value={graphqlResponse}
+              />
+            )}
           </Flex>
           {schema && (
             <Drawer

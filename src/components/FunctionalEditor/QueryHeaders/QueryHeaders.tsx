@@ -1,5 +1,6 @@
 import { Button, Drawer } from 'antd';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
+import { TranslatorContext } from '../../../context/translatorContextProvider';
 import { json } from '@codemirror/lang-json';
 import CodeMirror from '@uiw/react-codemirror';
 import classes from './query-headers.module.scss';
@@ -13,6 +14,7 @@ const QueryHeaders = ({ queryHeaders, setQueryHeaders }: QueryHeadersParams) => 
   const [openQueryHeaders, setOpenQueryHeaders] = useState(false);
   const [codemirrorValue, setCodemirrorValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const { lang, data } = useContext(TranslatorContext);
 
   const handleQueryHeaders = useCallback(() => {
     setErrorMessage('');
@@ -49,10 +51,10 @@ const QueryHeaders = ({ queryHeaders, setQueryHeaders }: QueryHeadersParams) => 
   return (
     <>
       <Button onClick={showHeaders} className={classes.headers}>
-        Headers
+        {data[lang].headersButton}
       </Button>
       <Drawer
-        title="Headers"
+        title={data[lang].headersButton}
         placement="bottom"
         onClose={onCloseDrawer}
         open={openQueryHeaders}

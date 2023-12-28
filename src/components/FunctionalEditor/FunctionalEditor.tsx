@@ -1,7 +1,8 @@
 import type { GraphQLSchema } from 'graphql';
-import { useCallback, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { Flex, Button, Tooltip } from 'antd';
 import { SendOutlined, ClearOutlined } from '@ant-design/icons';
+import { TranslatorContext } from '../../context/translatorContextProvider';
 import { graphql } from 'cm6-graphql';
 import CodeMirror from '@uiw/react-codemirror';
 import QueryHeaders from './QueryHeaders/QueryHeaders';
@@ -12,28 +13,41 @@ type FunctionalEditorProps = {
   schema: GraphQLSchema | null;
   apiUrl: string;
   setGraphqlResponse: React.Dispatch<React.SetStateAction<string>>;
+  setResponseLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const FunctionalEditor = ({ schema, apiUrl, setGraphqlResponse }: FunctionalEditorProps) => {
+const FunctionalEditor = ({
+  schema,
+  apiUrl,
+  setGraphqlResponse,
+  setResponseLoading,
+}: FunctionalEditorProps) => {
   const [queryOption, setQueryOption] = useState('');
   const [queryVariables, setQueryVariables] = useState({});
   const [queryHeaders, setQueryHeaders] = useState({});
+  const { lang, data } = useContext(TranslatorContext);
 
   const sendRequest = async () => {
-    const graphqlQuery = {
-      operationName: null,
-      query: queryOption,
-      variables: queryVariables,
-    };
+    setResponseLoading(true);
 
-    const responseFromApi = await fetch(apiUrl, {
-      method: 'POST',
-      headers: queryHeaders,
-      body: JSON.stringify(graphqlQuery),
-    });
+    try {
+      const graphqlQuery = {
+        operationName: null,
+        query: queryOption,
+        variables: queryVariables,
+      };
 
-    const data = await responseFromApi.json();
-    setGraphqlResponse(JSON.stringify(data, null, 2));
+      const responseFromApi = await fetch(apiUrl, {
+        method: 'POST',
+        headers: queryHeaders,
+        body: JSON.stringify(graphqlQuery),
+      });
+
+      const data = await responseFromApi.json();
+      setGraphqlResponse(JSON.stringify(data, null, 2));
+    } finally {
+      setResponseLoading(false);
+    }
   };
 
   const onChangeQueryOption = useCallback((value: string) => {
@@ -51,16 +65,21 @@ const FunctionalEditor = ({ schema, apiUrl, setGraphqlResponse }: FunctionalEdit
       />
 
       <Flex className={classes.aside}>
-        <Tooltip title="Execute query">
+        <Tooltip
+          title={
+            apiUrl ? data[lang].sendButtonTooltipEnabled : data[lang].sendButtonTooltipDisabled
+          }
+        >
           <Button
             icon={<SendOutlined />}
             size="large"
             className={classes.send}
             onClick={sendRequest}
+            disabled={apiUrl ? false : true}
           />
         </Tooltip>
 
-        <Tooltip title="Prettify query">
+        <Tooltip title={data[lang].prettifyButtonTooltip}>
           <Button icon={<ClearOutlined />} size="large" className={classes.prettify} />
         </Tooltip>
       </Flex>
