@@ -33,7 +33,7 @@ const FunctionalEditor = ({ schema, apiUrl, setGraphqlResponse }: FunctionalEdit
     });
 
     const data = await responseFromApi.json();
-    setGraphqlResponse(JSON.stringify(data));
+    setGraphqlResponse(JSON.stringify(data, null, 2));
   };
 
   const onChangeQueryOption = useCallback((value: string) => {
