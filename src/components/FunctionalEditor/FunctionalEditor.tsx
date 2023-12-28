@@ -1,6 +1,7 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { Flex, Button, Tooltip } from 'antd';
 import { SendOutlined, ClearOutlined } from '@ant-design/icons';
+import { prettify } from '../../utils/prettify';
 import CodeMirror from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
 import type { GraphQLSchema } from 'graphql';
@@ -10,13 +11,16 @@ type FunctionalEditorProps = {
   schema: GraphQLSchema | null;
 };
 const FunctionalEditor = ({ schema }: FunctionalEditorProps) => {
+  const [query, setQuery] = useState('');
   const onChangeCodeMirror = useCallback((value: string) => {
+    setQuery(value);
     console.log('value:', value);
   }, []);
 
   return (
     <Flex className={classes.editor}>
       <CodeMirror
+        value={query}
         theme="light"
         height="100%"
         className={classes.codemirror}
@@ -29,7 +33,12 @@ const FunctionalEditor = ({ schema }: FunctionalEditorProps) => {
       </Tooltip>
 
       <Tooltip title="Prettify query">
-        <Button icon={<ClearOutlined />} size="large" className={classes.prettify} />
+        <Button
+          icon={<ClearOutlined />}
+          size="large"
+          className={classes.prettify}
+          onClick={() => setQuery(prettify(query))}
+        />
       </Tooltip>
     </Flex>
   );
