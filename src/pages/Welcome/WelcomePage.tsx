@@ -12,7 +12,7 @@ type WelcomePageProps = {
 const WelcomePage = ({ userLoggedIn }: WelcomePageProps) => {
   const { lang, data } = useContext(TranslatorContext);
   return (
-    <section className={classes.container}>
+    <section className={classes.container} data-testid="welcome-page">
       <h2>{data[lang].welcomePage}</h2>
       <WelcomeInfo />
       <div className={classes.links}>

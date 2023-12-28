@@ -34,6 +34,7 @@ const Header = ({ userLoggedIn, setUserLoggedIn }: HeaderProps) => {
         </NavLink>
 
         <Switch
+          data-testid="switch"
           checked={lang === 'ru'}
           checkedChildren="RU"
           unCheckedChildren="EN"
