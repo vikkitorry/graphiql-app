@@ -12,6 +12,12 @@ export const translationData = {
     goToGraphi: 'Go To GraphiQL',
     or: 'Or',
     regLink: 'register now',
+    sendButtonTooltipEnabled: 'Execute query',
+    sendButtonTooltipDisabled: 'Enter the URL',
+    prettifyButtonTooltip: 'Prettify query',
+    variablesButton: 'Variables',
+    headersButton: 'Headers',
+    apiInputPlaceholder: 'Enter the API endpoint',
   },
 
   ru: {
@@ -27,5 +33,11 @@ export const translationData = {
     goToGraphi: 'Попробуйте GraphiQL',
     or: 'Или',
     regLink: 'зарегистрируйтесь сейчас',
+    sendButtonTooltipEnabled: 'Выполнить запрос',
+    sendButtonTooltipDisabled: 'Введите URL-адрес',
+    prettifyButtonTooltip: 'Приукрасить запрос',
+    variablesButton: 'Переменные',
+    headersButton: 'Заголовки',
+    apiInputPlaceholder: 'Введите конечную точку API',
   },
 };

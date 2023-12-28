@@ -1,24 +1,29 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useContext } from 'react';
 import { Button, Drawer, Tooltip, Flex, Input, notification } from 'antd';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { SyncOutlined } from '@ant-design/icons';
 import { buildClientSchema, GraphQLSchema } from 'graphql';
 import { useDebounce } from 'use-debounce';
 import { INTROSPECTION_QUERY } from '../../constants/constants';
+import { TranslatorContext } from '../../context/translatorContextProvider';
 import { json } from '@codemirror/lang-json';
 import CodeMirror from '@uiw/react-codemirror';
 import Documentation from '../../components/Documentation/Documentation';
 import FunctionalEditor from '../../components/FunctionalEditor/FunctionalEditor';
-import ConfigEditor from '../../components/ConfigEditor/ConfigEditor';
+import Loader from '../../components/Loader/Loader';
 import classes from './graphiql-page.module.scss';
 
 const GraphiQLPage = () => {
   const [documentationOpen, setDocumentationOpen] = useState(false);
   const [schema, setSchema] = useState<GraphQLSchema | null>(null);
   const [schemaLoading, setSchemaLoading] = useState(false);
+  const [responseLoading, setResponseLoading] = useState(false);
   const [apiURL, setApiURL] = useState<string>('');
   const [debouncedApiURL] = useDebounce(apiURL, 500);
   const [api, contextHolder] = notification.useNotification();
+  const [graphqlResponse, setGraphqlResponse] = useState('');
+  const [queryHeaders, setQueryHeaders] = useState({});
+  const { lang, data } = useContext(TranslatorContext);
 
   const getSchema = useCallback(async () => {
     if (debouncedApiURL) {
@@ -26,9 +31,7 @@ const GraphiQLPage = () => {
         setSchemaLoading(true);
         const schemaFromApi = await fetch(debouncedApiURL, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: queryHeaders,
           body: JSON.stringify({
             query: INTROSPECTION_QUERY,
           }),
@@ -60,11 +63,11 @@ const GraphiQLPage = () => {
   return (
     <>
       {contextHolder}
-      <Flex className={classes.content}>
+      <Flex className={classes.content} data-testid="graphiQLPage">
         <div className={classes.header}>
           <Input
             value={apiURL}
-            placeholder="Enter the API endpoint"
+            placeholder={data[lang].apiInputPlaceholder}
             className={classes.request}
             onChange={(e) => {
               setApiURL(e.target.value);
@@ -94,18 +97,29 @@ const GraphiQLPage = () => {
         </div>
         <Flex className={classes.body}>
           <Flex className={classes.settings}>
-            <FunctionalEditor {...{ schema }} />
-            <ConfigEditor />
+            <FunctionalEditor
+              {...{ schema }}
+              apiUrl={apiURL}
+              setGraphqlResponse={setGraphqlResponse}
+              setResponseLoading={setResponseLoading}
+              queryHeaders={queryHeaders}
+              setQueryHeaders={setQueryHeaders}
+            />
           </Flex>
 
           <Flex className={classes.result}>
-            <CodeMirror
-              theme="light"
-              height="100%"
-              className={classes.codemirror}
-              extensions={[json()]}
-              editable={false}
-            />
+            {responseLoading ? (
+              <Loader />
+            ) : (
+              <CodeMirror
+                theme="light"
+                height="100%"
+                className={classes.codemirror}
+                extensions={[json()]}
+                editable={false}
+                value={graphqlResponse}
+              />
+            )}
           </Flex>
           {schema && (
             <Drawer
