@@ -9,7 +9,6 @@ import { json } from '@codemirror/lang-json';
 import CodeMirror from '@uiw/react-codemirror';
 import Documentation from '../../components/Documentation/Documentation';
 import FunctionalEditor from '../../components/FunctionalEditor/FunctionalEditor';
-import ConfigEditor from '../../components/ConfigEditor/ConfigEditor';
 import classes from './graphiql-page.module.scss';
 
 const GraphiQLPage = () => {
@@ -19,6 +18,7 @@ const GraphiQLPage = () => {
   const [apiURL, setApiURL] = useState<string>('');
   const [debouncedApiURL] = useDebounce(apiURL, 500);
   const [api, contextHolder] = notification.useNotification();
+  const [graphqlResponse, setGraphqlResponse] = useState('');
 
   const getSchema = useCallback(async () => {
     if (debouncedApiURL) {
@@ -94,8 +94,11 @@ const GraphiQLPage = () => {
         </div>
         <Flex className={classes.body}>
           <Flex className={classes.settings}>
-            <FunctionalEditor {...{ schema }} />
-            <ConfigEditor />
+            <FunctionalEditor
+              {...{ schema }}
+              apiUrl={apiURL}
+              setGraphqlResponse={setGraphqlResponse}
+            />
           </Flex>
 
           <Flex className={classes.result}>
@@ -105,6 +108,7 @@ const GraphiQLPage = () => {
               className={classes.codemirror}
               extensions={[json()]}
               editable={false}
+              value={graphqlResponse}
             />
           </Flex>
           {schema && (

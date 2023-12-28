@@ -1,17 +1,43 @@
-import { useCallback } from 'react';
+import type { GraphQLSchema } from 'graphql';
+import { useCallback, useState } from 'react';
 import { Flex, Button, Tooltip } from 'antd';
 import { SendOutlined, ClearOutlined } from '@ant-design/icons';
-import CodeMirror from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
-import type { GraphQLSchema } from 'graphql';
+import CodeMirror from '@uiw/react-codemirror';
+import QueryHeaders from './QueryHeaders/QueryHeaders';
+import QueryVariables from './QueryVariables/QueryVariables';
 import classes from './functional-editor.module.scss';
 
 type FunctionalEditorProps = {
   schema: GraphQLSchema | null;
+  apiUrl: string;
+  setGraphqlResponse: React.Dispatch<React.SetStateAction<string>>;
 };
-const FunctionalEditor = ({ schema }: FunctionalEditorProps) => {
-  const onChangeCodeMirror = useCallback((value: string) => {
-    console.log('value:', value);
+
+const FunctionalEditor = ({ schema, apiUrl, setGraphqlResponse }: FunctionalEditorProps) => {
+  const [queryOption, setQueryOption] = useState('');
+  const [queryVariables, setQueryVariables] = useState({});
+  const [queryHeaders, setQueryHeaders] = useState({});
+
+  const sendRequest = async () => {
+    const graphqlQuery = {
+      operationName: null,
+      query: queryOption,
+      variables: queryVariables,
+    };
+
+    const responseFromApi = await fetch(apiUrl, {
+      method: 'POST',
+      headers: queryHeaders,
+      body: JSON.stringify(graphqlQuery),
+    });
+
+    const data = await responseFromApi.json();
+    setGraphqlResponse(JSON.stringify(data));
+  };
+
+  const onChangeQueryOption = useCallback((value: string) => {
+    setQueryOption(value);
   }, []);
 
   return (
@@ -20,17 +46,27 @@ const FunctionalEditor = ({ schema }: FunctionalEditorProps) => {
         theme="light"
         height="100%"
         className={classes.codemirror}
-        onChange={onChangeCodeMirror}
+        onChange={onChangeQueryOption}
         extensions={schema ? [graphql(schema)] : []}
       />
 
-      <Tooltip title="Execute query">
-        <Button icon={<SendOutlined />} size="large" className={classes.send} />
-      </Tooltip>
+      <Flex className={classes.aside}>
+        <Tooltip title="Execute query">
+          <Button
+            icon={<SendOutlined />}
+            size="large"
+            className={classes.send}
+            onClick={sendRequest}
+          />
+        </Tooltip>
 
-      <Tooltip title="Prettify query">
-        <Button icon={<ClearOutlined />} size="large" className={classes.prettify} />
-      </Tooltip>
+        <Tooltip title="Prettify query">
+          <Button icon={<ClearOutlined />} size="large" className={classes.prettify} />
+        </Tooltip>
+      </Flex>
+
+      <QueryVariables setQueryVariables={setQueryVariables} />
+      <QueryHeaders queryHeaders={queryHeaders} setQueryHeaders={setQueryHeaders} />
     </Flex>
   );
 };
