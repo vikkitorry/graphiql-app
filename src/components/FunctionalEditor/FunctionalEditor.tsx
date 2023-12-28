@@ -12,6 +12,8 @@ import classes from './functional-editor.module.scss';
 type FunctionalEditorProps = {
   schema: GraphQLSchema | null;
   apiUrl: string;
+  queryHeaders: Record<string, string>;
+  setQueryHeaders: React.Dispatch<React.SetStateAction<Record<string, string>>>;
   setGraphqlResponse: React.Dispatch<React.SetStateAction<string>>;
   setResponseLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -19,12 +21,13 @@ type FunctionalEditorProps = {
 const FunctionalEditor = ({
   schema,
   apiUrl,
+  queryHeaders,
+  setQueryHeaders,
   setGraphqlResponse,
   setResponseLoading,
 }: FunctionalEditorProps) => {
   const [queryOption, setQueryOption] = useState('');
   const [queryVariables, setQueryVariables] = useState({});
-  const [queryHeaders, setQueryHeaders] = useState({});
   const { lang, data } = useContext(TranslatorContext);
 
   const sendRequest = async () => {

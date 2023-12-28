@@ -22,6 +22,7 @@ const GraphiQLPage = () => {
   const [debouncedApiURL] = useDebounce(apiURL, 500);
   const [api, contextHolder] = notification.useNotification();
   const [graphqlResponse, setGraphqlResponse] = useState('');
+  const [queryHeaders, setQueryHeaders] = useState({});
   const { lang, data } = useContext(TranslatorContext);
 
   const getSchema = useCallback(async () => {
@@ -30,9 +31,7 @@ const GraphiQLPage = () => {
         setSchemaLoading(true);
         const schemaFromApi = await fetch(debouncedApiURL, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: queryHeaders,
           body: JSON.stringify({
             query: INTROSPECTION_QUERY,
           }),
@@ -103,6 +102,8 @@ const GraphiQLPage = () => {
               apiUrl={apiURL}
               setGraphqlResponse={setGraphqlResponse}
               setResponseLoading={setResponseLoading}
+              queryHeaders={queryHeaders}
+              setQueryHeaders={setQueryHeaders}
             />
           </Flex>
 
