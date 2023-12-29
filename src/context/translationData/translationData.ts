@@ -18,6 +18,10 @@ export const translationData = {
     variablesButton: 'Variables',
     headersButton: 'Headers',
     apiInputPlaceholder: 'Enter the API endpoint',
+    error: 'Error',
+    errorConnectionMessage:
+      'Connection could not be established. Please check the URL (make sure the chosen API supports CORS).',
+    apiDocumentationTittle: 'API Documentation',
   },
 
   ru: {
@@ -39,5 +43,9 @@ export const translationData = {
     variablesButton: 'Переменные',
     headersButton: 'Заголовки',
     apiInputPlaceholder: 'Введите конечную точку API',
+    error: 'Ошибка',
+    errorConnectionMessage:
+      ' Соединение не может быть установлено. Проверьте URL-адрес (убедитесь, что выбранный API поддерживает CORS).',
+    apiDocumentationTittle: 'Документация API',
   },
 };

@@ -40,8 +40,8 @@ const GraphiQLPage = () => {
         setSchema(buildClientSchema(data));
       } catch {
         api.error({
-          message: `Error`,
-          description: `Connection could not be established. Please check the URL (make sure the chosen API supports CORS).`,
+          message: data[lang].error,
+          description: data[lang].errorConnectionMessage,
           placement: 'top',
         });
       } finally {
@@ -83,7 +83,7 @@ const GraphiQLPage = () => {
               />
             }
           />
-          <Tooltip title="Explore API Documentation">
+          <Tooltip title={data[lang].apiDocumentationTittle}>
             <Button
               className={classes.documentationButton}
               icon={<AiOutlineQuestionCircle size={20} />}
@@ -125,7 +125,7 @@ const GraphiQLPage = () => {
             <Drawer
               placement="right"
               closable={true}
-              title={'API Documentation'}
+              title={data[lang].apiDocumentationTittle}
               mask={false}
               onClose={() => setDocumentationOpen(false)}
               open={documentationOpen}
