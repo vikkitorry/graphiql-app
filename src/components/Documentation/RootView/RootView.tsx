@@ -44,7 +44,13 @@ const RootView = () => {
           <SectionHeading content={data[lang].types} icon={<TbSquareLetterT />} />
 
           {Object.values(schema.getTypeMap())
-            .filter((type) => !type.name.startsWith('__') && type !== rootQuery)
+            .filter(
+              (type) =>
+                !type.name.startsWith('__') &&
+                type !== rootQuery &&
+                type !== mutationQuery &&
+                type !== subscriptionQuery
+            )
             .map((type) => {
               return (
                 <li key={type.name}>
