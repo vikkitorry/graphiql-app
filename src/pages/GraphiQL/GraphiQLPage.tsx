@@ -60,7 +60,7 @@ const GraphiQLPage = () => {
         setSchemaLoading(false);
       }
     }
-  }, [debouncedApiURL, api]);
+  }, [debouncedApiURL, queryHeaders]);
 
   const onApiURLSubmit = useCallback(() => {
     setSchema(null);
@@ -70,7 +70,7 @@ const GraphiQLPage = () => {
 
   useEffect(() => {
     onApiURLSubmit();
-  }, [onApiURLSubmit]);
+  }, [debouncedApiURL]);
 
   return (
     <>
