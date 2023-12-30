@@ -28,7 +28,7 @@ export const translationData = {
     documentation: 'Documentation',
     apiDocumentation: 'API Documentation',
     type: 'Type',
-    types: 'Типы',
+    types: 'Types',
     rootTypes: 'Root Types',
     arguments: 'Arguments',
     fields: 'Fields',
