@@ -1,9 +1,11 @@
-import TypeLink from '../TypeLink/TypeLink';
+import { useContext } from 'react';
+import { TranslatorContext } from '../../../context/translatorContextProvider';
 import FieldLink from '../FieldLink/FieldLink';
 import ArgumentList from '../ArgumentList/ArgumentList';
-import type { StackItem } from '../../../types/documentationTypes';
+import TypeLink from '../TypeLink/TypeLink';
 import SectionHeading from '../SectionHeading/SectionHeading';
 import { TbSquareLetterF, TbSquareLetterE } from 'react-icons/tb';
+import type { StackItem } from '../../../types/documentationTypes';
 import classes from './type-view.module.scss';
 
 export type ViewProps = {
@@ -11,14 +13,16 @@ export type ViewProps = {
 };
 
 const TypeView = ({ viewProps }: ViewProps) => {
+  const { lang, data } = useContext(TranslatorContext);
   const { name, description, fields, enumValues } = viewProps;
+
   return (
     <>
       <h4>{name}</h4>
       {description ? <p className={classes.description}>{description}</p> : null}
       {fields && fields.length ? (
         <>
-          <SectionHeading content="Fields" icon={<TbSquareLetterF />} />
+          <SectionHeading content={data[lang].fields} icon={<TbSquareLetterF />} />
           <ul>
             {fields.map((field) => {
               const type = field.type;
@@ -39,7 +43,7 @@ const TypeView = ({ viewProps }: ViewProps) => {
       ) : null}
       {enumValues ? (
         <>
-          <SectionHeading content="Enum Values" icon={<TbSquareLetterE />} />
+          <SectionHeading content={data[lang].enumValues} icon={<TbSquareLetterE />} />
           <ul>
             {enumValues.map((enumValue) => {
               return (

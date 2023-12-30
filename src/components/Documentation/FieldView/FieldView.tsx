@@ -1,10 +1,14 @@
+import { useContext } from 'react';
+import { TranslatorContext } from '../../../context/translatorContextProvider';
 import TypeLink from '../TypeLink/TypeLink';
-import type { ViewProps } from '../TypeView/TypeView';
 import SectionHeading from '../SectionHeading/SectionHeading';
 import { TbSquareLetterT, TbSquareLetterA } from 'react-icons/tb';
+import type { ViewProps } from '../TypeView/TypeView';
 import classes from './field-view.module.scss';
 
 const FieldView = ({ viewProps }: ViewProps) => {
+  const { lang, data } = useContext(TranslatorContext);
+
   const { name, description, args, type } = viewProps;
   return (
     <>
@@ -12,13 +16,13 @@ const FieldView = ({ viewProps }: ViewProps) => {
       {description ? <p>{description}</p> : null}
       {type ? (
         <>
-          <SectionHeading content="Type" icon={<TbSquareLetterT />} />
+          <SectionHeading content={data[lang].type} icon={<TbSquareLetterT />} />
           <TypeLink type={type} />
         </>
       ) : null}
       {args?.length ? (
         <>
-          <SectionHeading content="Arguments" icon={<TbSquareLetterA />} />
+          <SectionHeading content={data[lang].arguments} icon={<TbSquareLetterA />} />
           <ul>
             {args.map((arg) => {
               return (

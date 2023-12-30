@@ -1,9 +1,10 @@
-import { useState, lazy, Suspense } from 'react';
+import { useState, useContext, lazy, Suspense } from 'react';
 import { DocumentationContext } from '../../context/documentationContext';
+import { TranslatorContext } from '../../context/translatorContextProvider';
 import { Skeleton } from 'antd';
+import type { GraphQLSchema } from 'graphql';
 import type { StackItem } from '../../types/documentationTypes';
 import classes from './documentation.module.scss';
-import { GraphQLSchema } from 'graphql';
 
 const RootView = lazy(() => import('./RootView/RootView'));
 const FieldView = lazy(() => import('./FieldView/FieldView'));
@@ -13,7 +14,11 @@ type DocumentationViewProps = {
   schema: GraphQLSchema;
 };
 const DocumentationView = ({ schema }: DocumentationViewProps) => {
-  const [stack, setStack] = useState<StackItem[]>([{ name: 'Root', view: 'root' }]);
+  const { lang, data } = useContext(TranslatorContext);
+  const [stack, setStack] = useState<StackItem[]>([
+    { name: data[lang].documentation, view: 'root' },
+  ]);
+
   const currentStackItem = stack.at(-1);
   let currentView = null;
   if (currentStackItem) {
