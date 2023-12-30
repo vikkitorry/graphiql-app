@@ -16,24 +16,22 @@ const TypeLink = ({ type }: TypeLinkProps) => {
       href="#"
       className={classes.typeLink}
       onClick={(e) => {
-        const basicType = schema!.getType(getNamedType(type).name);
         e.preventDefault();
+        const basicType = schema!.getType(getNamedType(type).name);
         setStack((curr) => {
-          return curr.at(-1)?.name === getNamedType(type).name
-            ? curr
-            : [
-                ...curr,
-                {
-                  name: getNamedType(type).name,
-                  view: 'type',
-                  fields:
-                    isObjectType(basicType) || isInputObjectType(basicType)
-                      ? Object.values(basicType.getFields())
-                      : null,
-                  description: getNamedType(type).description,
-                  enumValues: isEnumType(type) ? Object.values(type.getValues()) : null,
-                },
-              ];
+          return [
+            ...curr,
+            {
+              name: getNamedType(type).name,
+              view: 'type',
+              fields:
+                isObjectType(basicType) || isInputObjectType(basicType)
+                  ? Object.values(basicType.getFields())
+                  : null,
+              description: getNamedType(type).description,
+              enumValues: isEnumType(type) ? Object.values(type.getValues()) : null,
+            },
+          ];
         });
       }}
     >

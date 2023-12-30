@@ -14,7 +14,6 @@ type FunctionalEditorProps = {
   schema: GraphQLSchema | null;
   apiUrl: string;
   queryHeaders: Record<string, string>;
-
   setQueryHeaders: React.Dispatch<React.SetStateAction<Record<string, string>>>;
   setGraphqlResponse: React.Dispatch<React.SetStateAction<string>>;
   setResponseLoading: React.Dispatch<React.SetStateAction<boolean>>;

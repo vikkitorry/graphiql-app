@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { TranslatorContext } from '../../../context/translatorContextProvider';
 import { DocumentationContext } from '../../../context/documentationContext';
 import TypeLink from '../TypeLink/TypeLink';
 import SectionHeading from '../SectionHeading/SectionHeading';
@@ -7,14 +8,17 @@ import classes from './root-view.module.scss';
 
 const RootView = () => {
   const { schema } = useContext(DocumentationContext);
+  const { lang, data } = useContext(TranslatorContext);
+
   const rootQuery = schema?.getQueryType();
   const mutationQuery = schema?.getMutationType();
+  const subscriptionQuery = schema?.getSubscriptionType();
 
   return (
     <>
       {schema && (
         <>
-          <SectionHeading content="Root Types" icon={<TbSquareLetterR />} />
+          <SectionHeading content={data[lang].rootTypes} icon={<TbSquareLetterR />} />
 
           {rootQuery ? (
             <p>
@@ -30,7 +34,14 @@ const RootView = () => {
             </p>
           ) : null}
 
-          <SectionHeading content="Types" icon={<TbSquareLetterT />} />
+          {subscriptionQuery ? (
+            <p>
+              <span className={classes.field}>mutation: </span>
+              <TypeLink type={subscriptionQuery} />
+            </p>
+          ) : null}
+
+          <SectionHeading content={data[lang].types} icon={<TbSquareLetterT />} />
 
           {Object.values(schema.getTypeMap())
             .filter((type) => !type.name.startsWith('__') && type !== rootQuery)

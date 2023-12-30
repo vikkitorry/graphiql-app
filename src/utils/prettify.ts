@@ -4,7 +4,6 @@ export const prettify = (text: string) => {
 
   const arrayFromText = text
     .replaceAll(/[^\S\r\n]+/gm, ' ')
-    .replaceAll(/[\n\r]+/gm, '')
     .replaceAll(/\s*:\s*/gm, ':')
     .replaceAll(/\s*,\s*/gm, ',')
     .replaceAll(/\s*\)\s*/gm, ')')
@@ -12,7 +11,10 @@ export const prettify = (text: string) => {
     .replaceAll(/\s*\$\s*/gm, '$')
     .replaceAll(/\s*{\s*/gm, '{')
     .replaceAll(/\s*}\s*/gm, '}')
-    .replaceAll(/[^\S\r\n](?=(?:[^'"`]*(['"`])[^'"`]*\1)*[^'"`]*$)/g, '\n')
+    .replaceAll(/\s*\]\s*/gm, ']')
+    .replaceAll(/\s*\[\s*/gm, '[')
+    .replaceAll(/\s*=\s*/gm, '=')
+    .replaceAll(/[^\S\r\n](?=(?:[^"]*(["])[^"]*\1)*[^"]*$)/gm, '\n')
     .replaceAll(/{(?=[^\)]*?(?:\(|$))/gm, '{\n')
     .replaceAll(/}(?=[^\)]*?(?:\(|$))/gm, '\n}\n')
     .split('\n');
@@ -30,11 +32,14 @@ export const prettify = (text: string) => {
       return indentIndex <= 0 ? trimmedLine : indent.repeat(indentIndex) + trimmedLine;
     })
     .join('\n')
-    .replace(/^query\s*/g, 'query ')
-    .replace(/^mutation\s*/g, 'mutation ')
-    .replace(/^subscription\s*/g, 'subscription ')
+    .replace(/^query\s*/gm, 'query ')
+    .replace(/^mutation\s*/gm, 'mutation ')
+    .replace(/^subscription\s*/gm, 'subscription ')
+    .replaceAll(/fragment\s+/g, 'fragment ')
+    .replaceAll(/\s+on\s+/g, ' on ')
     .replaceAll(/\s*:\s*/gm, ': ')
     .replaceAll(/\s*,\s*/gm, ', ')
+    .replaceAll(/\s*=\s*/gm, ' = ')
     .replaceAll(/(?<![^\S\r\n]){/g, ' {')
     .replaceAll(/\n+/g, '\n')
     .trim();
