@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import classes from './header.module.scss';
 import Service from '../../app/service/service';
 import { TranslatorContext } from '../../context/translatorContextProvider';
@@ -14,6 +14,18 @@ type HeaderProps = {
 
 const Header = ({ userLoggedIn, setUserLoggedIn }: HeaderProps) => {
   const { lang, data, setLang } = useContext(TranslatorContext);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const header = useRef<HTMLElement>(null);
+
+  useLayoutEffect(() => {
+    window.addEventListener('scroll', () => setScrollPosition(window.scrollY));
+  }, []);
+
+  useEffect(() => {
+    scrollPosition > 0
+      ? header.current?.classList.add(classes.sticky)
+      : header.current?.classList.remove(classes.sticky);
+  }, [scrollPosition]);
 
   const logout = async () => {
     await Service.signOut();
@@ -27,7 +39,7 @@ const Header = ({ userLoggedIn, setUserLoggedIn }: HeaderProps) => {
   };
 
   return (
-    <header className={classes.header}>
+    <header ref={header} className={classes.header}>
       <Flex gap={'middle'} align={'center'} className={classes.logobox}>
         <NavLink to={AppRoutes.MAIN} className={classes.logo}>
           <img src={logo} alt="logo" />
