@@ -1,16 +1,12 @@
 import { useContext } from 'react';
 import { TranslatorContext } from '../../../context/translatorContextProvider';
+import { TbSquareLetterF, TbSquareLetterE } from 'react-icons/tb';
 import FieldLink from '../FieldLink/FieldLink';
 import ArgumentList from '../ArgumentList/ArgumentList';
 import TypeLink from '../TypeLink/TypeLink';
 import SectionHeading from '../SectionHeading/SectionHeading';
-import { TbSquareLetterF, TbSquareLetterE } from 'react-icons/tb';
-import type { StackItem } from '../../../types/documentationTypes';
+import type { ViewProps } from '../../../types/documentationTypes';
 import classes from './type-view.module.scss';
-
-export type ViewProps = {
-  viewProps: StackItem;
-};
 
 const TypeView = ({ viewProps }: ViewProps) => {
   const { lang, data } = useContext(TranslatorContext);
