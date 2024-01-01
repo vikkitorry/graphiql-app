@@ -60,7 +60,7 @@ const GraphiQLPage = () => {
         setSchemaLoading(false);
       }
     }
-  }, [debouncedApiURL, api]);
+  }, [debouncedApiURL, queryHeaders]);
 
   const onApiURLSubmit = useCallback(() => {
     setSchema(null);
@@ -70,7 +70,7 @@ const GraphiQLPage = () => {
 
   useEffect(() => {
     onApiURLSubmit();
-  }, [onApiURLSubmit]);
+  }, [debouncedApiURL]);
 
   return (
     <>
@@ -172,6 +172,7 @@ const GraphiQLPage = () => {
               onClose={() => setDocumentationOpen(false)}
               open={documentationOpen}
               getContainer={false}
+              styles={{ body: { padding: '0' } }}
             >
               <Documentation schema={schema} />
             </Drawer>

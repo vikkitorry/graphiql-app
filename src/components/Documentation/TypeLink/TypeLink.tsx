@@ -1,5 +1,12 @@
 import { useContext } from 'react';
-import { getNamedType, isObjectType, isInputObjectType, GraphQLType, isEnumType } from 'graphql';
+import {
+  getNamedType,
+  isObjectType,
+  isInputObjectType,
+  GraphQLType,
+  isEnumType,
+  isInterfaceType,
+} from 'graphql';
 import { DocumentationContext } from '../../../context/documentationContext';
 import { getTypeString } from '../../../utils/getTypeString';
 import classes from './type-link.module.scss';
@@ -25,7 +32,9 @@ const TypeLink = ({ type }: TypeLinkProps) => {
               name: getNamedType(type).name,
               view: 'type',
               fields:
-                isObjectType(basicType) || isInputObjectType(basicType)
+                isObjectType(basicType) ||
+                isInputObjectType(basicType) ||
+                isInterfaceType(basicType)
                   ? Object.values(basicType.getFields())
                   : null,
               description: getNamedType(type).description,

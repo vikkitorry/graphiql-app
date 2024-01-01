@@ -3,7 +3,7 @@ export const handleApiError = (error: Response): Record<string, string> => {
     return { en: 'Bad request', ru: 'Неверный запрос' };
   }
   if (error.status === 401) {
-    return { en: 'This API requires authorization', ru: 'Для данного API требуется авторизация' };
+    return { en: 'API authorization failed', ru: 'Ошибка авторизации API' };
   }
   if (error.status === 403) {
     return { en: 'Access to the requested resource is forbidden', ru: 'Доступ к ресурсу запрещен' };
