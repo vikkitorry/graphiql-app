@@ -1,4 +1,10 @@
-import { GraphQLArgument, GraphQLType, GraphQLInputType, GraphQLEnumValue } from 'graphql';
+import {
+  GraphQLArgument,
+  GraphQLType,
+  GraphQLInputType,
+  GraphQLEnumValue,
+  GraphQLSchema,
+} from 'graphql';
 
 export type FieldType = {
   name: string;
@@ -20,4 +26,12 @@ export type StackItem = {
   fields?: FieldType[] | null;
   type?: GraphQLType;
   enumValues?: GraphQLEnumValue[] | null;
+};
+
+export type ViewProps = {
+  viewProps: StackItem;
+};
+
+export type DocumentationProps = {
+  schema: GraphQLSchema;
 };

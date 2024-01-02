@@ -4,6 +4,7 @@ import { Flex, Button, Tooltip } from 'antd';
 import { SendOutlined, ClearOutlined } from '@ant-design/icons';
 import { TranslatorContext } from '../../context/translatorContextProvider';
 import { graphql } from 'cm6-graphql';
+import { prettify } from '../../utils/prettify';
 import CodeMirror from '@uiw/react-codemirror';
 import QueryHeaders from './QueryHeaders/QueryHeaders';
 import QueryVariables from './QueryVariables/QueryVariables';
@@ -60,6 +61,7 @@ const FunctionalEditor = ({
   return (
     <Flex className={classes.editor}>
       <CodeMirror
+        value={queryOption}
         theme="light"
         height="100%"
         className={classes.codemirror}
@@ -83,7 +85,12 @@ const FunctionalEditor = ({
         </Tooltip>
 
         <Tooltip title={data[lang].prettifyButtonTooltip}>
-          <Button icon={<ClearOutlined />} size="large" className={classes.prettify} />
+          <Button
+            icon={<ClearOutlined />}
+            size="large"
+            className={classes.prettify}
+            onClick={() => setQueryOption(prettify(queryOption))}
+          />
         </Tooltip>
       </Flex>
 

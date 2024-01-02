@@ -7,6 +7,7 @@ import { useDebounce } from 'use-debounce';
 import { INTROSPECTION_QUERY } from '../../constants/constants';
 import { TranslatorContext } from '../../context/translatorContextProvider';
 import { json } from '@codemirror/lang-json';
+import { handleApiError } from '../../utils/handleApiError';
 import CodeMirror from '@uiw/react-codemirror';
 import Documentation from '../../components/Documentation/Documentation';
 import FunctionalEditor from '../../components/FunctionalEditor/FunctionalEditor';
@@ -17,9 +18,10 @@ const GraphiQLPage = () => {
   const [documentationOpen, setDocumentationOpen] = useState(false);
   const [schema, setSchema] = useState<GraphQLSchema | null>(null);
   const [schemaLoading, setSchemaLoading] = useState(false);
+  const [connectionError, setConnectionError] = useState(false);
   const [responseLoading, setResponseLoading] = useState(false);
   const [apiURL, setApiURL] = useState<string>('');
-  const [debouncedApiURL] = useDebounce(apiURL, 500);
+  const [debouncedApiURL] = useDebounce(apiURL, 700);
   const [api, contextHolder] = notification.useNotification();
   const [graphqlResponse, setGraphqlResponse] = useState('');
   const [queryHeaders, setQueryHeaders] = useState({});
@@ -29,26 +31,36 @@ const GraphiQLPage = () => {
     if (debouncedApiURL) {
       try {
         setSchemaLoading(true);
-        const schemaFromApi = await fetch(debouncedApiURL, {
+        const res = await fetch(debouncedApiURL, {
           method: 'POST',
           headers: queryHeaders,
           body: JSON.stringify({
             query: INTROSPECTION_QUERY,
           }),
         });
-        const { data } = await schemaFromApi.json();
-        setSchema(buildClientSchema(data));
-      } catch {
-        api.error({
-          message: data[lang].error,
-          description: data[lang].errorConnectionMessage,
-          placement: 'top',
-        });
+        if (!res.ok) {
+          setConnectionError(true);
+          const message = handleApiError(res);
+          api.error({
+            message: data[lang].error,
+            description: message[lang],
+            placement: 'top',
+          });
+        } else {
+          const { data } = await res.json();
+          setSchema(buildClientSchema(data));
+          setConnectionError(false);
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error(error.message);
+          setConnectionError(true);
+        }
       } finally {
         setSchemaLoading(false);
       }
     }
-  }, [debouncedApiURL, api]);
+  }, [debouncedApiURL, queryHeaders]);
 
   const onApiURLSubmit = useCallback(() => {
     setSchema(null);
@@ -58,7 +70,7 @@ const GraphiQLPage = () => {
 
   useEffect(() => {
     onApiURLSubmit();
-  }, [onApiURLSubmit]);
+  }, [debouncedApiURL]);
 
   return (
     <>
@@ -73,23 +85,53 @@ const GraphiQLPage = () => {
               setApiURL(e.target.value);
             }}
             onPressEnter={onApiURLSubmit}
+            prefix={
+              <Tooltip
+                placement="right"
+                title={
+                  debouncedApiURL === ''
+                    ? data[lang].defaultStatus
+                    : schemaLoading
+                      ? data[lang].connectingStatus
+                      : connectionError
+                        ? data[lang].notConnectedStatus
+                        : data[lang].connectedStatus
+                }
+              >
+                <div
+                  className={classes.connectionStatus}
+                  style={{
+                    backgroundColor:
+                      debouncedApiURL === ''
+                        ? 'grey'
+                        : schemaLoading
+                          ? 'yellow'
+                          : connectionError
+                            ? 'red'
+                            : 'green',
+                  }}
+                />
+              </Tooltip>
+            }
             suffix={
-              <Button
-                type="text"
-                size="small"
-                icon={<SyncOutlined />}
-                loading={schemaLoading}
-                onClick={onApiURLSubmit}
-              />
+              <Tooltip title={data[lang].refetchSchema}>
+                <Button
+                  type="text"
+                  size="small"
+                  icon={<SyncOutlined />}
+                  loading={schemaLoading}
+                  onClick={onApiURLSubmit}
+                />
+              </Tooltip>
             }
           />
-          <Tooltip title={data[lang].apiDocumentationTittle}>
+          <Tooltip title={data[lang].exploreDocumentation}>
             <Button
               className={classes.documentationButton}
               icon={<AiOutlineQuestionCircle size={20} />}
               onClick={() => setDocumentationOpen(!documentationOpen)}
               style={{
-                backgroundColor: documentationOpen ? 'rgba(0, 0, 0, 0.078)' : 'transparent',
+                backgroundColor: documentationOpen ? 'var(--light-panel-bg-color)' : 'transparent',
               }}
               disabled={!schema}
             />
@@ -125,11 +167,12 @@ const GraphiQLPage = () => {
             <Drawer
               placement="right"
               closable={true}
-              title={data[lang].apiDocumentationTittle}
+              title={data[lang].apiDocumentation}
               mask={false}
               onClose={() => setDocumentationOpen(false)}
               open={documentationOpen}
               getContainer={false}
+              styles={{ body: { padding: '0' } }}
             >
               <Documentation schema={schema} />
             </Drawer>
