@@ -1,5 +1,7 @@
+import cls from './ErrorPage.module.scss';
+
 const ErrorPage = () => {
-  return <div>Ooops something went wrong</div>;
+  return <div className={cls.errorPage}>Ooops something went wrong</div>;
 };
 
 export default ErrorPage;

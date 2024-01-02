@@ -1,0 +1,11 @@
+.errorPage {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--light-panel-bg-color);
+  color: var(--tittle-text-color);
+  font-size: var(--font-size-xl);
+  text-align: center;
+}

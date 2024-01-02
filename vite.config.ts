@@ -17,7 +17,7 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text'],
       include: ['**/*.tsx'],
-      exclude: ['**/main.tsx', '**/ErrorPage.tsx'],
+      exclude: ['**/main.tsx'],
     },
   },
 });

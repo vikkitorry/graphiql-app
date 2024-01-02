@@ -8,7 +8,7 @@
   position: fixed;
   top: 0;
   z-index: 1000;
-  transition: all .3s ease 0s;
+  transition: all 0.3s ease 0s;
 
   a {
     font-family: var(--font-family-main);
@@ -17,7 +17,7 @@
 
 .sticky {
   padding: 3px 15px;
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .sticky:hover {
