@@ -173,6 +173,7 @@ const GraphiQLPage = () => {
               open={documentationOpen}
               getContainer={false}
               styles={{ body: { padding: '0' } }}
+              width="320px"
             >
               <Documentation schema={schema} />
             </Drawer>

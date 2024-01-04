@@ -1,6 +1,7 @@
 import { Button, Drawer } from 'antd';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { TranslatorContext } from '../../../context/translatorContextProvider';
+import { useWindowWidth } from '../../../utils/hooks/useWindowWidth';
 import { json } from '@codemirror/lang-json';
 import CodeMirror from '@uiw/react-codemirror';
 import classes from './query-variables.module.scss';
@@ -14,6 +15,7 @@ const QueryVariables = ({ setQueryVariables }: QueryVariablesParams) => {
   const [codemirrorValue, setCodemirrorValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const { lang, data } = useContext(TranslatorContext);
+  const { width } = useWindowWidth();
 
   const handleQueryVariables = useCallback(() => {
     setErrorMessage('');
@@ -54,14 +56,17 @@ const QueryVariables = ({ setQueryVariables }: QueryVariablesParams) => {
       </Button>
       <Drawer
         title={data[lang].variablesButton}
-        placement="bottom"
+        placement={width > 800 ? 'bottom' : 'left'}
+        width="318px"
         onClose={onCloseDrawer}
         open={openQueryVariables}
         getContainer={false}
       >
         <CodeMirror
+          className={classes.codemirror}
           theme="light"
-          height="250px"
+          height="100%"
+          minHeight="245px"
           extensions={[json()]}
           onChange={onChangeVariables}
         />

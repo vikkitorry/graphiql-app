@@ -78,7 +78,6 @@ const FunctionalEditor = ({
           <Button
             icon={<SendOutlined />}
             size="large"
-            className={classes.send}
             onClick={sendRequest}
             disabled={apiUrl ? false : true}
           />
@@ -88,7 +87,6 @@ const FunctionalEditor = ({
           <Button
             icon={<ClearOutlined />}
             size="large"
-            className={classes.prettify}
             onClick={() => setQueryOption(prettify(queryOption))}
           />
         </Tooltip>
