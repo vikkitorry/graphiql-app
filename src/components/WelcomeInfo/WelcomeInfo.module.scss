@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
   * {
     user-select: none;
   }
@@ -10,46 +11,71 @@
 .cards {
   position: relative;
   display: flex;
-  top: 83px;
+  top: 100px;
+
+  @media screen and (max-width: 690px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    top: 0;
+  }
 }
 
 .card {
   font-size: var(--font-size-s);
   font-family: var(--font-family-main);
-  width: 170px;
-  height: 220px;
+  width: 200px;
+  height: 270px;
   border: 3px solid var(--tittle-text-color);
   z-index: 1;
+
+  @media screen and (max-width: 690px) {
+    width: 95%;
+    height: auto;
+    text-align: center;
+  }
 }
 
 .project {
   left: 15px;
   transform: rotate(-32deg);
+
+  @media screen and (max-width: 690px) {
+    transform: rotate(0deg);
+    left: 0;
+  }
 }
 
 .dev {
   margin: 0 auto;
   top: -50px;
   transform: rotate(0deg);
+
+  @media screen and (max-width: 690px) {
+    top: 0;
+    margin: 0;
+  }
 }
 
 .course {
   right: 15px;
   transform: rotate(32deg);
+
+  @media screen and (max-width: 690px) {
+    transform: rotate(0deg);
+    right: 0;
+  }
 }
 
 .clouds {
   position: relative;
-  width: 400px;
+  width: 460px;
   height: auto;
   z-index: 10;
-}
 
-.cat {
-  position: absolute;
-  bottom: 40px;
-  width: 100px;
-  height: auto;
+  @media screen and (max-width: 690px) {
+    display: none;
+  }
 }
 
 .developer {
@@ -58,10 +84,28 @@
   width: 100%;
   align-items: center;
   justify-content: space-around;
+
+  p {
+    width: 65px;
+  }
+
   img {
     border: 3px solid var(--tittle-text-color);
     border-radius: 50%;
     width: 37px;
     height: auto;
+  }
+
+  @media screen and (max-width: 690px) {
+    justify-content: center;
+    gap: 10px;
+
+    img {
+      width: 80px;
+    }
+
+    p {
+      width: 100px;
+    }
   }
 }

@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
+import cat from '../../assets/cat.gif';
 import classes from './welcome-page.module.scss';
 import WelcomeInfo from '../../components/WelcomeInfo/WelcomeInfo';
 import { TranslatorContext } from '../../context/translatorContextProvider';
@@ -33,6 +34,7 @@ const WelcomePage = ({ userLoggedIn }: WelcomePageProps) => {
           </>
         )}
       </div>
+      <img src={cat} className={classes.cat} />
     </section>
   );
 };

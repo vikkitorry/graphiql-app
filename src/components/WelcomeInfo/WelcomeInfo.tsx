@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import cls from './WelcomeInfo.module.scss';
-import cat from '../../assets/cat.gif';
 import cloudDark from '../../assets/cloudDark.svg';
 import natasha from '../../assets/natasha.png';
 import vika from '../../assets/vika.png';
@@ -18,6 +17,7 @@ const WelcomeInfo = () => {
           title={cardsData[lang].project.title}
           size={'small'}
           className={`${cls.card} ${cls.project}`}
+          headStyle={{ fontSize: '18px', padding: '10px' }}
         >
           <p>{cardsData[lang].project.data[0]}</p>
           <p>{cardsData[lang].project.data[1]}</p>
@@ -26,6 +26,7 @@ const WelcomeInfo = () => {
           title={cardsData[lang].developers.title}
           size={'small'}
           className={`${cls.card} ${cls.dev}`}
+          headStyle={{ fontSize: '18px', padding: '10px' }}
         >
           <div className={cls.developer}>
             <img src={natasha} alt={cardsData[lang].developers.alt} />
@@ -44,11 +45,11 @@ const WelcomeInfo = () => {
           title={cardsData[lang].course.title}
           size={'small'}
           className={`${cls.card} ${cls.course}`}
+          headStyle={{ fontSize: '18px', padding: '10px' }}
         >
           <p>{cardsData[lang].course.data}</p>
         </Card>
       </div>
-      <img src={cat} className={cls.cat} />
       <img src={cloudDark} className={cls.clouds}></img>
     </div>
   );

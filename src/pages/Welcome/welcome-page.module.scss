@@ -4,12 +4,19 @@
   align-items: center;
   height: 100%;
   padding: 20px;
+  position: relative;
+
+  @media screen and (max-width: 690px) {
+    padding: 20px 5px;
+    gap: 20px;
+  }
 }
 
 .links {
   margin-top: 10px;
   display: flex;
   gap: 15px;
+  padding-bottom: 45px;
 }
 
 .link {
@@ -18,4 +25,11 @@
 
 .linkColor {
   color: var(--tittle-text-color);
+}
+
+.cat {
+  position: absolute;
+  bottom: -35px;
+  width: 100px;
+  height: auto;
 }
