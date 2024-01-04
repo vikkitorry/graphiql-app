@@ -36,7 +36,7 @@ const SignInPage = () => {
   };
 
   return (
-    <section>
+    <section className={cls.section}>
       <>{contextHolder}</>
       <Form
         form={form}

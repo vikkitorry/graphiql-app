@@ -34,7 +34,7 @@ const SignUpPage = () => {
   };
 
   return (
-    <section>
+    <section className={cls.section}>
       <>{contextHolder}</>
       <Form
         form={form}
