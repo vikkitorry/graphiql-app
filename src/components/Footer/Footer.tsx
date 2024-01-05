@@ -5,19 +5,19 @@ import GithubIcon from '../../assets/githubIcon.svg';
 const Footer = () => {
   return (
     <footer className={cls.footer}>
-      <div className={cls.container}>
+      <div className={cls.links}>
         <a href="https://github.com/kotokatu">
-          <img src={GithubIcon} alt={'RSSshool icon'} width={40} height={40} />
+          <img src={GithubIcon} alt={'RSSshool icon'} />
         </a>
         <a href="https://github.com/Kirich8">
-          <img src={GithubIcon} alt={'RSSshool icon'} width={40} height={40} />
+          <img src={GithubIcon} alt={'RSSshool icon'} />
         </a>
         <a href="https://github.com/vikkitorry">
-          <img src={GithubIcon} alt={'RSSshool icon'} width={40} height={40} />
+          <img src={GithubIcon} alt={'RSSshool icon'} />
         </a>
       </div>
-      <div>2024</div>
-      <div>
+      <div className={cls.year}>2024</div>
+      <div className={cls.rsschool}>
         <a href="https://rs.school/react/">
           <img src={RssIcon} alt={'RSSshool icon'} width={70} height={60} />
         </a>
