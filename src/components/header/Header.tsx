@@ -1,11 +1,12 @@
 import { NavLink } from 'react-router-dom';
 import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import classes from './header.module.scss';
-import Service from '../../app/service/service';
 import { TranslatorContext } from '../../context/translatorContextProvider';
 import { AppRoutes } from '../../routes/routeConfig/routeConfig';
 import { Flex, Switch } from 'antd';
+import Service from '../../app/service/service';
+import BurgerMenu from './BurgerMenu/BurgerMenu';
 import logo from '../../assets/GraphiQL.png';
+import classes from './header.module.scss';
 
 type HeaderProps = {
   userLoggedIn: boolean;
@@ -73,6 +74,8 @@ const Header = ({ userLoggedIn, setUserLoggedIn }: HeaderProps) => {
           </Flex>
         )}
       </Flex>
+
+      <BurgerMenu userLoggedIn={userLoggedIn} logout={logout} />
     </header>
   );
 };
