@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { TranslatorContext } from '../../context/translatorContextProvider';
+import { useWindowWidth } from '../../utils/hooks/useWindowWidth';
 import { AppRoutes } from '../../routes/routeConfig/routeConfig';
 import { Flex, Switch } from 'antd';
 import Service from '../../app/service/service';
@@ -17,6 +18,7 @@ const Header = ({ userLoggedIn, setUserLoggedIn }: HeaderProps) => {
   const { lang, data, setLang } = useContext(TranslatorContext);
   const [scrollPosition, setScrollPosition] = useState(0);
   const header = useRef<HTMLElement>(null);
+  const { width } = useWindowWidth();
 
   useLayoutEffect(() => {
     window.addEventListener('scroll', () => setScrollPosition(window.scrollY));
@@ -75,7 +77,7 @@ const Header = ({ userLoggedIn, setUserLoggedIn }: HeaderProps) => {
         )}
       </Flex>
 
-      <BurgerMenu userLoggedIn={userLoggedIn} logout={logout} />
+      {width <= 755 && <BurgerMenu userLoggedIn={userLoggedIn} logout={logout} />}
     </header>
   );
 };

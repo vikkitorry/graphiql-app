@@ -43,7 +43,7 @@
   flex: 1 1 300px;
   color: var(--tittle-text-color);
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 755px) {
     display: none;
   }
 }
@@ -52,7 +52,7 @@
   flex: 0 1 300px;
   justify-content: flex-end;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 755px) {
     display: none;
   }
 }
@@ -62,13 +62,18 @@
   background-color: var(--light-panel-bg-color);
   border: 0;
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 755px) {
     display: block;
   }
 }
 
 .burgerIcon {
   font-size: 20px;
+}
+
+.closeIcon {
+  font-size: 20px;
+  margin-top: 15px;
 }
 
 .burgerMenu {

@@ -16,7 +16,9 @@
   margin-top: 10px;
   display: flex;
   gap: 15px;
-  padding-bottom: 45px;
+  padding: 0 10px 45px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .link {
