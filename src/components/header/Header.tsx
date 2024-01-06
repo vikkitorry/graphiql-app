@@ -1,11 +1,13 @@
 import { NavLink } from 'react-router-dom';
 import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import classes from './header.module.scss';
-import Service from '../../app/service/service';
 import { TranslatorContext } from '../../context/translatorContextProvider';
+import { useWindowWidth } from '../../utils/hooks/useWindowWidth';
 import { AppRoutes } from '../../routes/routeConfig/routeConfig';
 import { Flex, Switch } from 'antd';
+import Service from '../../app/service/service';
+import BurgerMenu from './BurgerMenu/BurgerMenu';
 import logo from '../../assets/GraphiQL.png';
+import classes from './header.module.scss';
 
 type HeaderProps = {
   userLoggedIn: boolean;
@@ -16,6 +18,7 @@ const Header = ({ userLoggedIn, setUserLoggedIn }: HeaderProps) => {
   const { lang, data, setLang } = useContext(TranslatorContext);
   const [scrollPosition, setScrollPosition] = useState(0);
   const header = useRef<HTMLElement>(null);
+  const { width } = useWindowWidth();
 
   useLayoutEffect(() => {
     window.addEventListener('scroll', () => setScrollPosition(window.scrollY));
@@ -73,6 +76,8 @@ const Header = ({ userLoggedIn, setUserLoggedIn }: HeaderProps) => {
           </Flex>
         )}
       </Flex>
+
+      {width <= 755 && <BurgerMenu userLoggedIn={userLoggedIn} logout={logout} />}
     </header>
   );
 };

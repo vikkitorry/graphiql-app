@@ -1,8 +1,8 @@
 .header {
   display: flex;
-  gap: 10px;
+  gap: 15px;
   width: 100%;
-  padding: 10px;
+  padding: 12px;
 }
 
 .documentationButton {
@@ -10,6 +10,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 40px;
+  height: 40px;
 }
 
 .content {
@@ -27,7 +29,7 @@
 
 .request {
   align-self: center;
-  margin-bottom: 15px;
+  height: 40px;
 }
 
 .body {
@@ -36,6 +38,11 @@
   width: 100%;
   display: flex;
   border: 2px solid #00000014;
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+    overflow: hidden;
+  }
 }
 
 .settings {
@@ -43,16 +50,30 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+
+  @media screen and (max-width: 800px) {
+    overflow: visible;
+  }
 }
 
 .result {
   flex: 0 0 50%;
   border-left: 2px solid #00000014;
   overflow: hidden;
+
+  @media screen and (max-width: 800px) {
+    border: 0;
+    overflow: visible;
+    min-height: 347px;
+  }
 }
 
 .codemirror {
   width: 100%;
+
+  @media screen and (max-width: 800px) {
+    height: 350px;
+  }
 }
 
 .connectionStatus {

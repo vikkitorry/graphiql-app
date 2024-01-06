@@ -7,7 +7,7 @@
   background-color: var(--light-panel-bg-color);
   position: fixed;
   top: 0;
-  z-index: 1000;
+  z-index: 1001;
   transition: all 0.3s ease 0s;
 
   a {
@@ -26,6 +26,7 @@
 
 .logobox {
   flex: 0 1 300px;
+  justify-content: flex-start;
 }
 
 .logo {
@@ -41,8 +42,48 @@
   font-size: var(--font-size-l);
   flex: 1 1 300px;
   color: var(--tittle-text-color);
+
+  @media screen and (max-width: 755px) {
+    display: none;
+  }
 }
 
 .authLinks {
   flex: 0 1 300px;
+  justify-content: flex-end;
+
+  @media screen and (max-width: 755px) {
+    display: none;
+  }
+}
+
+.burgerButton {
+  display: none;
+  background-color: var(--light-panel-bg-color);
+  border: 0;
+
+  @media screen and (max-width: 755px) {
+    display: block;
+  }
+}
+
+.burgerIcon {
+  font-size: 20px;
+}
+
+.closeIcon {
+  font-size: 20px;
+  margin-top: 15px;
+}
+
+.burgerMenu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-family: var(--font-family-main);
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--tittle-text-color);
 }
