@@ -26,7 +26,7 @@ const Documentation = ({ schema }: DocumentationProps) => {
 
   return (
     <DocumentationContext.Provider value={{ schema, setStack }}>
-      <div ref={ref} className={classes.container}>
+      <div ref={ref} className={classes.container} data-testid="documentation">
         {stack.length > 1 ? (
           <h5>
             <a

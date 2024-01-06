@@ -7,27 +7,21 @@ type ArgumentListProps = {
 };
 const ArgumentList = ({ args }: ArgumentListProps) => {
   if (!args || args.length === 0) return null;
-  if (args.length === 1)
-    return (
-      <span>
-        {'('}
-        <Argument arg={args[0]} />
-        {')'}
-      </span>
-    );
   return (
     <>
-      <span>{'('}</span>
-      <ul>
-        {args.map((arg) => {
-          return (
-            <li key={arg.name} className={classes.argumentItem}>
-              <Argument arg={arg} />
-            </li>
-          );
-        })}
-      </ul>
-      <span>{')'}</span>
+      {args.length === 1 ? (
+        <Argument arg={args[0]} />
+      ) : (
+        <ul>
+          {args.map((arg) => {
+            return (
+              <li key={arg.name} className={classes.argumentItem}>
+                <Argument arg={arg} />
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </>
   );
 };

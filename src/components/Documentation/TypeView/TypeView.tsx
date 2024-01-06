@@ -14,7 +14,7 @@ const TypeView = ({ viewProps }: ViewProps) => {
 
   return (
     <>
-      <h4>{name}</h4>
+      <h4 data-testid="type-name">{name}</h4>
       {description ? <p className={classes.description}>{description}</p> : null}
       {fields && fields.length ? (
         <>
@@ -26,7 +26,13 @@ const TypeView = ({ viewProps }: ViewProps) => {
                 <li key={field.name}>
                   <div>
                     <FieldLink field={field} type={type} />
-                    <ArgumentList args={field.args} />
+                    {field.args.length ? (
+                      <>
+                        <span>{'('}</span>
+                        <ArgumentList args={field.args} />
+                        <span>{')'}</span>
+                      </>
+                    ) : null}
                     <span>: </span>
                     <TypeLink type={type} />
                   </div>
