@@ -26,7 +26,7 @@ const TypeView = ({ viewProps }: ViewProps) => {
                 <li key={field.name}>
                   <div>
                     <FieldLink field={field} type={type} />
-                    {field.args.length ? (
+                    {field.args?.length ? (
                       <>
                         <span>{'('}</span>
                         <ArgumentList args={field.args} />

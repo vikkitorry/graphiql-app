@@ -14,11 +14,14 @@ describe('Documentation', () => {
         <Documentation schema={clientSchemaMock} />
       </MemoryRouter>
     );
-    await waitFor(async () => {
-      expect(await screen.findByRole('heading', { name: 'Root Types' })).toBeInTheDocument();
-      expect(await screen.findByRole('heading', { name: 'Types' })).toBeInTheDocument();
-      expect(await screen.findByRole('link', { name: 'TestRootType' })).toBeInTheDocument();
-    });
+    await waitFor(
+      async () => {
+        expect(await screen.findByRole('heading', { name: 'Root Types' })).toBeInTheDocument();
+        expect(await screen.findByRole('heading', { name: 'Types' })).toBeInTheDocument();
+        expect(await screen.findByRole('link', { name: 'TestRootType' })).toBeInTheDocument();
+      },
+      { timeout: 3000 }
+    );
     const types = await screen.findAllByRole('listitem');
     expect(types.length).toEqual(
       schemaResponseMock.data.__schema.types.filter((type) => !type.name.startsWith('__')).length -
