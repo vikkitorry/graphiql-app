@@ -60,7 +60,7 @@ const GraphiQLPage = () => {
         setSchemaLoading(false);
       }
     }
-  }, [debouncedApiURL, queryHeaders]);
+  }, [debouncedApiURL, queryHeaders, lang]);
 
   const onApiURLSubmit = useCallback(() => {
     setSchema(null);
