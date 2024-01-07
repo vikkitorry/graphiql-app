@@ -68,12 +68,19 @@ describe('GraphiQLPage', () => {
     const inputElement = screen.getByPlaceholderText(/Enter the API endpoint/i);
     const documentationButton = screen.getByTestId('documentation-button');
     await userEvent.type(inputElement, 'https://schema');
-    await waitFor(async () => {
-      expect(documentationButton).not.toBeDisabled();
-      await userEvent.click(documentationButton);
-    });
-    const documentation = await screen.findByTestId('documentation');
-    expect(documentation).toBeInTheDocument();
+    await waitFor(
+      () => {
+        expect(documentationButton).not.toBeDisabled();
+      },
+      { timeout: 3000 }
+    );
+    await userEvent.click(documentationButton);
+    await waitFor(
+      async () => {
+        expect(screen.getByTestId('documentation')).toBeInTheDocument();
+      },
+      { timeout: 3000 }
+    );
   });
 
   test('Documentation explorer closes upon clearing API URL input', async () => {

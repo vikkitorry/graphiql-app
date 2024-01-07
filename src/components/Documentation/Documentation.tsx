@@ -1,4 +1,4 @@
-import { useState, useContext, useRef, lazy, Suspense, useLayoutEffect } from 'react';
+import { useState, useContext, useRef, lazy, Suspense, useLayoutEffect, useEffect } from 'react';
 import { DocumentationContext } from '../../context/documentationContext';
 import { TranslatorContext } from '../../context/translatorContextProvider';
 import { Skeleton } from 'antd';
@@ -23,6 +23,10 @@ const Documentation = ({ schema }: DocumentationProps) => {
   useLayoutEffect(() => {
     if (ref.current) ref.current.scrollTop = 0;
   }, [stack]);
+
+  useEffect(() => {
+    setStack([{ name: '', view: 'root' }]);
+  }, [schema]);
 
   return (
     <DocumentationContext.Provider value={{ schema, setStack }}>
