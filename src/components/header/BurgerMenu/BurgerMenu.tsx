@@ -29,6 +29,7 @@ const BurgerMenu = ({ userLoggedIn, logout }: BurgerMenuProps) => {
         className={classes.burgerButton}
         onClick={showBurgerMenu}
         icon={<MenuOutlined className={classes.burgerIcon} />}
+        data-testid="burger-btn"
       />
 
       <Drawer
@@ -40,7 +41,7 @@ const BurgerMenu = ({ userLoggedIn, logout }: BurgerMenuProps) => {
           body: { backgroundColor: '#c8e3ec' },
           header: { border: 0, backgroundColor: '#c8e3ec' },
         }}
-        closeIcon={<CloseOutlined className={classes.closeIcon} />}
+        closeIcon={<CloseOutlined className={classes.closeIcon} data-testid="close-btn" />}
         zIndex={1002}
       >
         <Flex className={classes.burgerMenu}>

@@ -1,6 +1,6 @@
 import { expect, vi, test, describe, beforeEach } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Documentation from './Documentation';
 import { clientSchemaMock, schemaResponseMock } from '../../mocks/schemaMock';
 describe('Documentation', () => {
@@ -14,10 +14,11 @@ describe('Documentation', () => {
         <Documentation schema={clientSchemaMock} />
       </MemoryRouter>
     );
-
-    expect(await screen.findByRole('heading', { name: 'Root Types' })).toBeInTheDocument();
-    expect(await screen.findByRole('heading', { name: 'Types' })).toBeInTheDocument();
-    expect(await screen.findByRole('link', { name: 'TestRootType' })).toBeInTheDocument();
+    await waitFor(async () => {
+      expect(await screen.findByRole('heading', { name: 'Root Types' })).toBeInTheDocument();
+      expect(await screen.findByRole('heading', { name: 'Types' })).toBeInTheDocument();
+      expect(await screen.findByRole('link', { name: 'TestRootType' })).toBeInTheDocument();
+    });
     const types = await screen.findAllByRole('listitem');
     expect(types.length).toEqual(
       schemaResponseMock.data.__schema.types.filter((type) => !type.name.startsWith('__')).length -
