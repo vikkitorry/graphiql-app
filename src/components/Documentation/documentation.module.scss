@@ -1,0 +1,19 @@
+.container {
+  display: block;
+  height: 100%;
+  padding: 15px 5px 15px 20px;
+  overflow: auto;
+}
+
+.wrapper {
+  position: relative;
+  right: 0;
+  height: 100%;
+}
+
+.navigationLink {
+  display: inline-flex;
+  gap: 2px;
+  align-items: center;
+  margin-bottom: 5px;
+}

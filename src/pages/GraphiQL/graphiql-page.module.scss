@@ -1,0 +1,83 @@
+.header {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  padding: 12px;
+}
+
+.documentationButton {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  display: flex;
+  gap: 10px;
+  flex-grow: 1;
+}
+
+.request {
+  align-self: center;
+  height: 40px;
+}
+
+.body {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  border: 2px solid #00000014;
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+    overflow: hidden;
+  }
+}
+
+.settings {
+  flex: 0 0 50%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  @media screen and (max-width: 800px) {
+    overflow: visible;
+  }
+}
+
+.result {
+  flex: 0 0 50%;
+  border-left: 2px solid #00000014;
+  overflow: hidden;
+
+  @media screen and (max-width: 800px) {
+    border: 0;
+    overflow: visible;
+    min-height: 347px;
+  }
+}
+
+.codemirror {
+  width: 100%;
+
+  @media screen and (max-width: 800px) {
+    height: 350px;
+  }
+}
+
+.connectionStatus {
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+}
