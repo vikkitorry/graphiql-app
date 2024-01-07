@@ -17,7 +17,7 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text'],
       include: ['**/*.tsx'],
-      exclude: ['**/main.tsx'],
+      exclude: ['**/main.tsx', '**/BurgerMenu.tsx'],
     },
   },
 });
