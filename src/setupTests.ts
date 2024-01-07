@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
-import { vi, afterAll } from 'vitest';
+import { vi, afterAll, beforeAll, afterEach } from 'vitest';
+import { server } from './utils/test-utils/server';
 
 afterAll(() => {
   vi.clearAllMocks();
@@ -18,3 +19,7 @@ Object.defineProperty(window, 'matchMedia', {
     dispatchEvent: vi.fn(),
   })),
 });
+
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());

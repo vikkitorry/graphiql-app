@@ -22,6 +22,7 @@ const TypeLink = ({ type }: TypeLinkProps) => {
     <a
       href="#"
       className={classes.typeLink}
+      data-testid="type-link"
       onClick={(e) => {
         e.preventDefault();
         const basicType = schema!.getType(getNamedType(type).name);

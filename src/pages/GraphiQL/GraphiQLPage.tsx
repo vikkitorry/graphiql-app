@@ -127,6 +127,7 @@ const GraphiQLPage = () => {
           />
           <Tooltip title={data[lang].exploreDocumentation}>
             <Button
+              data-testid="documentation-button"
               className={classes.documentationButton}
               icon={<AiOutlineQuestionCircle size={20} />}
               onClick={() => setDocumentationOpen(!documentationOpen)}
@@ -163,7 +164,7 @@ const GraphiQLPage = () => {
               />
             )}
           </Flex>
-          {schema && (
+          {schema ? (
             <Drawer
               placement="right"
               closable={true}
@@ -177,7 +178,7 @@ const GraphiQLPage = () => {
             >
               <Documentation schema={schema} />
             </Drawer>
-          )}
+          ) : null}
         </Flex>
       </Flex>
     </>
