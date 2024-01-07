@@ -13,7 +13,7 @@ const FieldView = ({ viewProps }: ViewProps) => {
   return (
     <>
       <h4 data-testid="field-name">{name}</h4>
-      {description ? <p>{description}</p> : null}
+      {description ? <p data-testid="field-description">{description}</p> : null}
       {type ? (
         <>
           <SectionHeading content={data[lang].type} icon={<TbSquareLetterT />} />

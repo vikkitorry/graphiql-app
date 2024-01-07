@@ -32,6 +32,7 @@ const Documentation = ({ schema }: DocumentationProps) => {
             <a
               className={classes.navigationLink}
               href="#"
+              data-testid="documentation-navlink"
               onClick={(e) => {
                 e.preventDefault();
                 setStack((current) => current.slice(0, -1));
@@ -44,7 +45,7 @@ const Documentation = ({ schema }: DocumentationProps) => {
             </a>
           </h5>
         ) : null}
-        <Suspense fallback={<Skeleton />}>{currentView}</Suspense>
+        <Suspense fallback={<Skeleton data-testid="skeleton" />}>{currentView}</Suspense>
       </div>
     </DocumentationContext.Provider>
   );

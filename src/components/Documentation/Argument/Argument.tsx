@@ -7,10 +7,10 @@ type ArgumentProps = {
 };
 const Argument = ({ arg }: ArgumentProps) => {
   return (
-    <>
+    <div className={classes.argumentContainer} data-testid="argument">
       <span className={classes.argument}>{arg.name}: </span>
       <TypeLink type={arg.type} />
-    </>
+    </div>
   );
 };
 
